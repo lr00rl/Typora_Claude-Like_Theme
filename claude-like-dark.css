@@ -617,3 +617,85 @@ footer {
     background-color: #211b17;
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
 }
+
+.megamenu-menu {
+    background-color: var(--side-bar-bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+.megamenu-menu-header {
+    border: none;
+    color: var(--text-color);
+}
+
+.megamenu-menu-header #megamenu-back-btn,
+.megamenu-menu-header .megamenu-menu-header-title-back,
+.megamenu-menu-header .megamenu-menu-header-title-menu {
+    color: var(--text-color);
+}
+
+header,
+#megamenu-content {
+    background: var(--bg-color) !important;
+    background-image: none !important;
+    color: var(--text-color) !important;
+}
+
+.megamenu-content,
+.megamenu-content-panel,
+.megamenu-menu-panel {
+    background: var(--bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+#recent-file-panel {
+    color: var(--text-color);
+    background: var(--bg-color);
+}
+
+#recent-file-panel-action-btn {
+    background: var(--bg-color);
+}
+
+#recent-file-panel tbody tr {
+    background: var(--bg-color);
+}
+
+#recent-file-panel tbody tr:nth-child(2n-1) {
+    background: var(--table-alt-color);
+}
+
+.megamenu-menu-panel .btn {
+    border: 1px solid var(--border-color);
+    background: var(--code-bg-color) !important;
+    color: var(--text-color);
+}
+
+.megamenu-menu-list li a {
+    color: var(--text-color);
+}
+
+.megamenu-menu-list li a:hover,
+.megamenu-menu-list li a.active {
+    background-color: var(--item-hover-bg-color);
+    color: var(--accent-color);
+}
+
+content,
+header {
+    background-color: var(--bg-color) !important;
+}
+
+#top-titlebar,
+#top-titlebar .toolbar-title-btn,
+#top-titlebar .ty-toolbar-btn,
+#top-titlebar ul,
+#top-titlebar li,
+#top-titlebar a {
+    background-color: var(--window-bg-color) !important;
+    color: var(--text-color) !important;
+}
+
+#top-titlebar {
+    border-top-color: var(--window-bg-color) !important;
+}

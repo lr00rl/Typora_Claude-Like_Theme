@@ -135,6 +135,50 @@
 - 表格边框与间距统一
 - Typora 编辑界面与导出风格一致性
 
+### 6. Tufte 风格旁注（Sidenote）
+
+主题内置了 Tufte 风格的旁注样式，搭配 sidenote 插件可以在正文右侧边栏显示注释，适合补充说明、引用来源、术语解释等。
+
+**使用方式**
+
+在 Markdown 中写入：
+
+```html
+这里是正文内容<span class="sidenote">这是一条旁注，会显示在右侧边栏。</span>正文继续。
+```
+
+**编辑器内效果（需要 sidenote 插件）**
+
+插件会自动识别 Typora 编辑器内的 inline HTML 结构，添加样式类并注入 CSS：
+
+- **宽屏 (>=1200px)**：旁注浮动到右侧边栏，带自动编号前缀（如 `1.`、`2.`）
+- **窄屏 (<1200px)**：旁注以行内高亮标签呈现
+- **编辑时**：光标所在段落的旁注回到行内显示，方便编辑
+
+**各配置下的表现**
+
+| 场景 | Typora 编辑器内 | 导出 HTML/PDF |
+|------|------------------|---------------|
+| 主题 + 插件 | 自动编号 + 右侧边栏浮动 | 旁注浮在右侧（无编号） |
+| 仅插件 | 自动编号 + 右侧边栏浮动（使用内置样式） | 无特殊样式 |
+| 仅主题 | 无效果（Typora 不渲染 inline HTML class） | 旁注浮在右侧 |
+| 都未安装 | 旁注内容作为普通文字显示 | 旁注内容作为普通文字显示 |
+
+> **推荐搭配**：安装 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 的 `sidenote` 插件可获得编辑器内的完整体验。主题 CSS 负责导出样式，插件负责编辑器体验，两者互补。
+
+**导出用的完整 HTML 结构（手动写法，不依赖插件）**
+
+如果需要导出 HTML 时也有编号和窄屏折叠功能，可以手动写完整的 Tufte 结构：
+
+```html
+正文内容
+<label class="margin-toggle sidenote-number" for="sn-1"></label>
+<label class="margin-toggle" for="sn-1"></label>
+<input type="checkbox" id="sn-1" class="margin-toggle">
+<span class="sidenote">这条旁注在导出时带有自动编号和窄屏折叠功能。</span>
+正文继续。
+```
+
 ## 后续可继续扩展的方向
 
 - 增加专用缩略图与预览图
@@ -282,6 +326,50 @@ If you prefer highly decorative layouts or very dramatic heading styles, this th
 - fenced code syntax highlighting
 - unified table rhythm and borders
 - better consistency between Typora editing and export
+
+### 6. Tufte-style Sidenotes
+
+The theme includes Tufte-style sidenote CSS. Paired with the sidenote plugin, sidenotes float in the right margin on wide screens — perfect for supplementary notes, citations, and term definitions.
+
+**Usage**
+
+Write in Markdown:
+
+```html
+Body text here<span class="sidenote">This note appears in the right margin.</span> body continues.
+```
+
+**Editor behavior (requires sidenote plugin)**
+
+The plugin auto-detects Typora's inline HTML structure and injects styling:
+
+- **Wide screen (>=1200px)**: Sidenotes float to right margin with auto-numbering (`1.`, `2.`, ...)
+- **Narrow screen (<1200px)**: Sidenotes display as highlighted inline tags
+- **While editing**: Sidenotes in the focused paragraph return inline for easy editing
+
+**Rendering by configuration**
+
+| Setup | Typora editor | Exported HTML/PDF |
+|-------|---------------|-------------------|
+| Theme + Plugin | Auto-numbered + right margin float | Notes float right (no numbering) |
+| Plugin only | Auto-numbered + right margin float (built-in styles) | No special styling |
+| Theme only | No effect (Typora doesn't render inline HTML classes) | Notes float right |
+| Neither | Note content shows as plain text | Note content shows as plain text |
+
+> **Recommended**: Install the `sidenote` plugin from [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) for the full editor experience. Theme CSS handles export styling, the plugin handles editor styling — they complement each other.
+
+**Full HTML for export (manual, no plugin needed)**
+
+For numbering and narrow-screen toggle in exported HTML, write the full Tufte structure:
+
+```html
+Body text
+<label class="margin-toggle sidenote-number" for="sn-1"></label>
+<label class="margin-toggle" for="sn-1"></label>
+<input type="checkbox" id="sn-1" class="margin-toggle">
+<span class="sidenote">This sidenote has auto-numbering and narrow-screen toggle in export.</span>
+Body continues.
+```
 
 ## Possible Future Extensions
 

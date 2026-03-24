@@ -476,6 +476,100 @@ tt {
     text-decoration: line-through;
 }
 
+/*
+ * Sidenote / Margin note — Tufte-style annotations
+ */
+#write {
+    counter-reset: sidenote-counter;
+}
+
+/* Widen content area when sidenotes exist */
+@media (min-width: 1200px) {
+    #write:has(.sidenote),
+    #write:has(.marginnote) {
+        max-width: 1160px;
+        padding-right: 300px;
+    }
+}
+
+/* Superscript number in text */
+.sidenote-number {
+    counter-increment: sidenote-counter;
+}
+.sidenote-number::after {
+    content: counter(sidenote-counter);
+    font-size: 0.7em;
+    position: relative;
+    top: -0.5em;
+    color: var(--accent-color);
+    font-weight: 600;
+    padding-left: 1px;
+}
+
+/* Hidden toggle mechanism */
+input.margin-toggle { display: none; }
+label.margin-toggle:not(.sidenote-number) { display: none; }
+
+/* Margin notes — base style */
+.sidenote, .marginnote {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--quote-text-color);
+    vertical-align: baseline;
+    position: relative;
+}
+
+/* Only show numbered prefix when plugin has injected the toggle structure */
+input.margin-toggle + .sidenote::before {
+    content: counter(sidenote-counter) ". ";
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.78rem;
+}
+
+/* Desktop: float into right padding area */
+@media (min-width: 1200px) {
+    .sidenote, .marginnote {
+        float: right;
+        clear: right;
+        margin-right: -280px;
+        width: 250px;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        border-left: 2px solid var(--border-color);
+        padding-left: 10px;
+    }
+}
+
+/* Narrow screens: toggle inline (only when plugin structure exists) */
+@media (max-width: 1199px) {
+    label.margin-toggle:not(.sidenote-number) {
+        display: inline;
+        cursor: pointer;
+        color: var(--accent-color);
+    }
+    label.margin-toggle:not(.sidenote-number)::after {
+        content: "⊕";
+        font-size: 0.85em;
+        margin-left: 2px;
+    }
+    /* Only hide sidenotes when toggle mechanism exists; bare spans stay visible */
+    input.margin-toggle ~ .sidenote,
+    input.margin-toggle ~ .marginnote { display: none; }
+    .margin-toggle:checked + .sidenote,
+    .margin-toggle:checked + .marginnote {
+        display: block;
+        float: left;
+        clear: both;
+        width: 95%;
+        margin: 0.6rem 2.5%;
+        padding: 0.5rem 0.8rem;
+        background: var(--quote-bg-color);
+        border-left: 2px solid var(--accent-color);
+        border-radius: 6px;
+    }
+}
+
 @media print {
     html {
         font-size: 13px;

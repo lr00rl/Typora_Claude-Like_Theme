@@ -570,6 +570,82 @@ input.margin-toggle + .sidenote::before {
     }
 }
 
+/*
+ * Editor: plugin-injected sidenote classes (.tpl-sn-num / .tpl-sidenote)
+ * These rules provide theme-consistent styling when the sidenote plugin is active.
+ * Pure CSS cannot detect sidenotes in the editor (the class is text, not a DOM attribute),
+ * so the plugin's JS is required to add these classes.
+ */
+
+/* In-text superscript number */
+.tpl-sn-num {
+    counter-increment: sidenote-counter;
+    user-select: none;
+    pointer-events: none;
+}
+.tpl-sn-num::after {
+    content: counter(sidenote-counter);
+    font-size: 0.7em;
+    position: relative;
+    top: -0.5em;
+    color: var(--accent-color);
+    font-weight: 600;
+    padding-left: 1px;
+}
+.md-focus > .tpl-sn-num { display: none; }
+
+/* Margin note content */
+.md-html-inline.tpl-sidenote {
+    font-size: 0.82rem;
+    line-height: 1.45;
+    color: var(--quote-text-color);
+    vertical-align: baseline;
+    position: relative;
+}
+.md-html-inline.tpl-sidenote::before {
+    content: counter(sidenote-counter) ". ";
+    font-weight: 600;
+    color: var(--accent-color);
+    font-size: 0.78rem;
+}
+.md-focus > .md-html-inline.tpl-sidenote::before {
+    content: none;
+}
+
+@media (min-width: 1200px) {
+    #write:has(.tpl-sidenote) {
+        max-width: 1160px;
+        padding-right: 300px;
+    }
+    .md-html-inline.tpl-sidenote {
+        float: right;
+        clear: right;
+        margin-right: -280px;
+        width: 250px;
+        margin-top: 0;
+        margin-bottom: 1rem;
+        border-left: 2px solid var(--border-color);
+        padding-left: 10px;
+    }
+    .md-focus > .md-html-inline.tpl-sidenote {
+        float: none;
+        width: auto;
+        margin-right: 0;
+        margin-bottom: 0;
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+@media (max-width: 1199px) {
+    .md-html-inline.tpl-sidenote {
+        padding: 0.1em 0.4em;
+        background: var(--quote-bg-color);
+        border-radius: 4px;
+        margin: 0 2px;
+    }
+}
+
 @media print {
     html {
         font-size: 13px;

@@ -137,7 +137,7 @@
 
 ### 6. Tufte 风格旁注（Sidenote）
 
-主题内置了 Tufte 风格的旁注样式，搭配 sidenote 插件可以在正文右侧边栏显示注释，适合补充说明、引用来源、术语解释等。
+主题内置了 Tufte 风格的旁注样式，可以在正文右侧边栏显示注释，适合补充说明、引用来源、术语解释等。
 
 **使用方式**
 
@@ -147,37 +147,43 @@
 这里是正文内容<span class="sidenote">这是一条旁注，会显示在右侧边栏。</span>正文继续。
 ```
 
+**为什么编辑器内需要插件？**
+
+Typora 编辑器不会将 inline HTML 的 class 渲染为真正的 DOM 属性。你写的 `<span class="sidenote">` 在编辑器里会变成：
+
+```
+span.md-html-inline                      ← Typora 自动生成的包裹层（没有 sidenote class）
+  ├─ span.md-meta  → 文本: <span class="sidenote">   ← 只是显示的文本
+  ├─ span.md-plain → 文本: 旁注内容
+  └─ span.md-meta  → 文本: </span>
+```
+
+`class="sidenote"` 只是纯文本字符串，CSS 无法根据元素的文本内容来选择元素——所以纯 CSS 无法在编辑器内识别旁注。[sidenote 插件](https://github.com/lr00rl/typora-plugin-lite)读取这段文本、给元素加上可被 CSS 识别的 class，之后所有样式（编号、浮动、边栏）都由 CSS 完成。
+
+三者的职责分工：
+
+```
+你:      写 <span class="sidenote">旁注内容</span>
+插件:    识别 → 加 .tpl-sidenote class + 插入 .tpl-sn-num 编号标记
+CSS:     所有视觉效果（上标编号、右侧浮动、响应式布局）
+```
+
 **编辑器内效果（需要 sidenote 插件）**
 
-插件会自动识别 Typora 编辑器内的 inline HTML 结构，添加样式类并注入 CSS：
-
-- **宽屏 (>=1200px)**：旁注浮动到右侧边栏，带自动编号前缀（如 `1.`、`2.`）
+- **宽屏 (>=1200px)**：正文中显示上标编号（¹ ² ³），旁注浮动到右侧边栏并显示匹配的编号前缀
 - **窄屏 (<1200px)**：旁注以行内高亮标签呈现
-- **编辑时**：光标所在段落的旁注回到行内显示，方便编辑
+- **编辑时**：光标所在段落的旁注和编号标记回到行内，方便编辑
 
 **各配置下的表现**
 
 | 场景 | Typora 编辑器内 | 导出 HTML/PDF |
 |------|------------------|---------------|
-| 主题 + 插件 | 自动编号 + 右侧边栏浮动 | 旁注浮在右侧（无编号） |
-| 仅插件 | 自动编号 + 右侧边栏浮动（使用内置样式） | 无特殊样式 |
-| 仅主题 | 无效果（Typora 不渲染 inline HTML class） | 旁注浮在右侧 |
+| 主题 + 插件 | 上标编号 + 右侧边栏浮动（完整体验） | 旁注浮在右侧 |
+| 仅插件 | 上标编号 + 右侧边栏浮动（使用插件内置样式） | 无特殊样式 |
+| 仅主题 | 无效果（CSS 无法识别编辑器内的 sidenote） | 旁注浮在右侧 |
 | 都未安装 | 旁注内容作为普通文字显示 | 旁注内容作为普通文字显示 |
 
-> **推荐搭配**：安装 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 的 `sidenote` 插件可获得编辑器内的完整体验。主题 CSS 负责导出样式，插件负责编辑器体验，两者互补。
-
-**导出用的完整 HTML 结构（手动写法，不依赖插件）**
-
-如果需要导出 HTML 时也有编号和窄屏折叠功能，可以手动写完整的 Tufte 结构：
-
-```html
-正文内容
-<label class="margin-toggle sidenote-number" for="sn-1"></label>
-<label class="margin-toggle" for="sn-1"></label>
-<input type="checkbox" id="sn-1" class="margin-toggle">
-<span class="sidenote">这条旁注在导出时带有自动编号和窄屏折叠功能。</span>
-正文继续。
-```
+> **推荐搭配**：安装 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 的 `sidenote` 插件以获得编辑器内的完整体验。主题 CSS 提供导出样式和编辑器样式规则，插件负责识别旁注并添加 CSS 可用的 class，两者互补。
 
 ## 后续可继续扩展的方向
 
@@ -329,7 +335,7 @@ If you prefer highly decorative layouts or very dramatic heading styles, this th
 
 ### 6. Tufte-style Sidenotes
 
-The theme includes Tufte-style sidenote CSS. Paired with the sidenote plugin, sidenotes float in the right margin on wide screens — perfect for supplementary notes, citations, and term definitions.
+The theme includes Tufte-style sidenote CSS for margin annotations — perfect for supplementary notes, citations, and term definitions.
 
 **Usage**
 
@@ -339,37 +345,43 @@ Write in Markdown:
 Body text here<span class="sidenote">This note appears in the right margin.</span> body continues.
 ```
 
+**Why is a plugin needed for the editor?**
+
+Typora's editor does not render inline HTML classes as real DOM attributes. When you write `<span class="sidenote">`, the editor DOM becomes:
+
+```
+span.md-html-inline                       ← Typora's wrapper (no sidenote class)
+  ├─ span.md-meta  → text: <span class="sidenote">    ← just displayed text
+  ├─ span.md-plain → text: note content
+  └─ span.md-meta  → text: </span>
+```
+
+`class="sidenote"` is a plain text string — CSS cannot select elements based on their text content, so pure CSS cannot identify sidenotes in the editor. The [sidenote plugin](https://github.com/lr00rl/typora-plugin-lite) reads this text, adds a CSS-targetable class to the element, and from there all styling (numbering, floating, margin layout) is handled entirely by CSS.
+
+Responsibilities:
+
+```
+You:      Write <span class="sidenote">note content</span>
+Plugin:   Detect → add .tpl-sidenote class + insert .tpl-sn-num number marker
+CSS:      All visual effects (superscript numbers, right margin float, responsive layout)
+```
+
 **Editor behavior (requires sidenote plugin)**
 
-The plugin auto-detects Typora's inline HTML structure and injects styling:
-
-- **Wide screen (>=1200px)**: Sidenotes float to right margin with auto-numbering (`1.`, `2.`, ...)
+- **Wide screen (>=1200px)**: Superscript numbers appear in text (¹ ² ³), sidenotes float to the right margin with matching numbered prefixes
 - **Narrow screen (<1200px)**: Sidenotes display as highlighted inline tags
-- **While editing**: Sidenotes in the focused paragraph return inline for easy editing
+- **While editing**: Sidenotes and number markers in the focused paragraph return inline for easy editing
 
 **Rendering by configuration**
 
 | Setup | Typora editor | Exported HTML/PDF |
 |-------|---------------|-------------------|
-| Theme + Plugin | Auto-numbered + right margin float | Notes float right (no numbering) |
-| Plugin only | Auto-numbered + right margin float (built-in styles) | No special styling |
-| Theme only | No effect (Typora doesn't render inline HTML classes) | Notes float right |
+| Theme + Plugin | Superscript numbers + right margin float (full experience) | Notes float right |
+| Plugin only | Superscript numbers + right margin float (built-in styles) | No special styling |
+| Theme only | No effect (CSS cannot detect sidenotes in the editor) | Notes float right |
 | Neither | Note content shows as plain text | Note content shows as plain text |
 
-> **Recommended**: Install the `sidenote` plugin from [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) for the full editor experience. Theme CSS handles export styling, the plugin handles editor styling — they complement each other.
-
-**Full HTML for export (manual, no plugin needed)**
-
-For numbering and narrow-screen toggle in exported HTML, write the full Tufte structure:
-
-```html
-Body text
-<label class="margin-toggle sidenote-number" for="sn-1"></label>
-<label class="margin-toggle" for="sn-1"></label>
-<input type="checkbox" id="sn-1" class="margin-toggle">
-<span class="sidenote">This sidenote has auto-numbering and narrow-screen toggle in export.</span>
-Body continues.
-```
+> **Recommended**: Install the `sidenote` plugin from [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) for the full editor experience. The theme CSS provides styling rules for both the editor and export; the plugin identifies sidenotes and adds CSS-targetable classes. They complement each other.
 
 ## Possible Future Extensions
 

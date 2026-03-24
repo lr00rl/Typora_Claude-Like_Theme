@@ -1,397 +1,137 @@
 # Claude-Like Theme
 
-> [English Version Below](#english-version)
+[English README](README_en.md)
 
-![light](https://raw.githubusercontent.com/Muyiiiii/Typora_Claude-Like_Theme/master/image/2026-03-11-claude-like-theme/light.png)
+![Light Preview](image/light.png)
 
-![dark](https://raw.githubusercontent.com/Muyiiiii/Typora_Claude-Like_Theme/master/image/2026-03-11-claude-like-theme/dark.png)
+![Dark Preview](image/dark.png)
 
-一个以 Claude-like 阅读体验为灵感、并针对中文写作重新打磨的 Typora 主题。
+![Outline Preview](image/outline.png)
 
-## 安装方式
+一个以 Claude-like 阅读体验为灵感、针对中文写作与技术文档重新打磨的 Typora 主题。
 
-也可以直接从 GitHub 的 Releases 页面下载最新主题文件。
+## 主题概览
+
+这个主题不是简单复刻网页视觉，而是把更安静、克制、适合长时间阅读的文档气质带进 Typora，并继续围绕中文排版、代码块、表格、侧边栏和导出效果做针对性优化。
+
+当前仓库包含：
+
+- `claude-like.css`：浅色主题
+- `claude-like-dark.css`：深色主题
+- `tests/typora-theme-workspace`：用于验证文件树、大纲、Markdown 和 sidenote 的演示工作区
+
+## 最近能力整理
+
+结合当前 CSS 和最近的 `git log`，这套主题现在重点覆盖了这些能力：
+
+- 文件树 tree hint line，包含竖向 stem、横向连接线和最后一个节点的圆角收尾
+- File Library 中 active file 吸顶，以及 ancestor breadcrumb 逐层吸顶
+- sticky depth support 扩展到 10 层目录
+- Outline 侧边栏的树状提示线与 hover / active 高亮
+- 更宽的正文区域与图片比例保护
+- 任务列表已完成状态的弱化处理
+- Tufte 风格 sidenote，以及与 `typora-plugin-lite` 的 `sidenote` 插件联动的编辑器样式
+
+## 安装
+
+也可以直接从 GitHub Releases 下载最新主题文件。
 
 1. 打开 Typora。
 2. 进入 `设置 / 偏好设置 -> 外观 -> 打开主题文件夹`。
-3. 将以下文件复制到主题目录中：
-
+3. 将下列文件复制到主题目录：
    - `claude-like.css`
    - `claude-like-dark.css`
 4. 重启 Typora。
 5. 在主题菜单中选择：
-
    - `Claude-like`
    - `Claude-like Dark`
 
-> **推荐设置（Windows）**：进入 `偏好设置 -> 外观`，将**窗口样式**设为**一体化**（重启 Typora 后生效），主题在 Windows 一体化模式下显示效果最佳。
+> Windows 推荐将 `偏好设置 -> 外观 -> 窗口样式` 设为 `一体化`，重启后生效。当前主题在 Windows 一体化模式下更稳定。
 
-它不是简单地把网页样式搬进 Typora，而是保留了 Claude-like 那种安静、克制、长文友好的阅读气质，同时针对中文内容、表格、代码块、导出效果做了重新调校。
+## 设计重点
 
-## 设计目标
+- 中文正文优先：正文、标题、强调文本、代码分别使用不同字体策略
+- 长文阅读优先：低饱和、轻对比、较宽松留白，不抢正文注意力
+- 技术文档优先：表格、代码块、行内代码、数学公式与导出效果统一
+- 双主题同步维护：浅色和深色不是简单反色，而是分别调过对比度、边框强度和代码高亮
 
-- 让长文阅读更稳定，不抢内容本身的注意力。
-- 让中文标题、正文、强调文本之间的层级更清楚。
-- 让技术文档里最常见的表格、代码块、行内代码保持统一风格。
-- 同时提供浅色与深色两个版本，减少切换场景时的割裂感。
+## 视觉特性
 
-## 主题特点
+### 1. 文件树与大纲
 
-### 1. Claude-like 风格的整体阅读气质
+- 左侧 File Library 有树状连接线
+- 当前活动文件有更明确的高亮与左侧强调条
+- 活动文件的祖先目录会在滚动时逐层吸顶
+- 右侧 Outline 也有对应的树状提示线和拐点处理
 
-主题整体采用低饱和、轻对比、较宽松的留白节奏，适合：
+![Outline Preview](image/outline.png)
 
-- 技术笔记
-- 课程总结
-- 论文阅读记录
-- AI 对话整理
-- 中英文混排说明文档
+### 2. 正文与 Markdown
 
-相比更“设计感驱动”的 Typora 主题，这套样式更强调稳定性、可读性和连续阅读体验。
+- 中文正文和中英混排更稳
+- 标题层级更清楚
+- 引用块、分隔线、列表与任务列表保持统一气质
+- `TOC` 区块有独立容器样式
 
-### 2. 针对中文优化的字体方案
+### 3. 表格与代码
 
-为了让中文观感更接近实际阅读材料，而不是浏览器默认排版，主题将正文、标题、强调文本、代码分别处理：
+- 表格边框、行间距、数字对齐和 hover 状态已统一
+- 行内代码使用胶囊式弱强调
+- 代码块有独立背景、边框、语言标签和语法高亮
+- 如果在 Typora 中开启代码块行号，主题也会同步覆盖行号颜色
 
-- 正文以更适合长文阅读的中文字体为主。
-- 标题和强调文本采用更清晰的字族，增强层级。
-- 代码区域使用独立的等宽字体栈，保证字符对齐与辨识度。
+### 4. Sidenote
 
-这样的处理在中文文档里会比纯英文网页字体迁移更自然。
+主题内置了 Tufte 风格 sidenote 规则，适合做术语补充、注释和边栏说明。
 
-### 3. 统一过的表格系统
+最简单的写法：
 
-表格是技术文档里最容易失控的部分，所以这套主题专门统一了：
+```html
+这里是正文<span class="sidenote">这是一条旁注。</span>正文继续。
+```
 
-- 表头与正文的字体层级
-- 横向分隔线强弱
-- 单元格内边距
-- 中英文混排时的节奏
-- 明暗主题下的视觉一致性
+如果希望在 Typora 编辑器内也看到完整的 sidenote 编号和边栏效果，推荐配合 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 的 `sidenote` 插件。主题 CSS 负责视觉样式，插件负责把编辑器里的 inline HTML 标记转换为可供 CSS 识别的 class。
 
-它适合展示：
+宽屏示例：
 
-- 对比表
-- 参数表
-- 实验结果表
-- 概念说明表
+![Sidenote Wide Preview](image/sidenote-example-wide.png)
 
-### 4. 更接近日常技术写作的代码样式
+窄屏示例：
 
-代码部分分成两类处理：
+![Sidenote Narrow Preview](image/sidenote-example-narrow.png)
 
-- 行内代码：更像轻量提示标签，适合突出变量名、函数名、命令名。
-- 代码块：保留独立背景、边框、语言标签与语法高亮。
+## 演示工作区
 
-当前代码块高亮重点做了这些区分：
+仓库内新增了一套专门给 Typora 使用的测试工作区：
 
-- 关键词 / 内建函数：紫色系
-- 字符串：绿色系
-- 注释与行号：灰色系
-- 默认代码文本：深色中性文字
+- 根目录：`tests/typora-theme-workspace`
+- 主测试文件：`tests/typora-theme-workspace/01-library-lab/02-ancestor-breadcrumb/01-outline-lab/02-markdown-lab/03-code-lab/04-sidenote-lab/05-export-lab/06-depth-lab/07-tree-line-lab/08-sticky-lab/09-active-file-lab/10-showcase/typora-theme-showcase.md`
 
-这样既不会像 IDE 那样过度鲜艳，也不会因为过于克制而失去可读性。
+建议这样测试：
 
-### 5. 明暗双主题同步维护
-
-项目包含：
-
-- `claude-like.css`
-- `claude-like-dark.css`
-
-两套主题不是简单反色，而是在以下部分分别做了独立调整：
-
-- 背景与文本对比
-- 表格边框强度
-- 代码块背景与高亮色
-- 侧栏 / 菜单 / 编辑界面过渡
-
-因此浅色和深色模式下都能保持一致的阅读逻辑。
+1. 在 Typora 中直接打开 `tests/typora-theme-workspace` 整个文件夹。
+2. 保持左侧 File Library 和右侧 Outline 同时打开。
+3. 打开最深层的 `typora-theme-showcase.md`。
+4. 滚动左侧文件树，检查 tree hint line、sticky ancestor breadcrumb、sticky active file。
+5. 在正文里检查标题层级、TOC、表格、代码块、代码行号、数学公式、图片、脚注和 sidenote。
+6. 在 `Claude-like` 与 `Claude-like Dark` 之间切换，并把窗口宽度切到 `>=1200px` 和 `<1200px` 两种状态对比旁注表现。
 
 ## 适用场景
 
-这套主题尤其适合下面几类内容：
-
-- 需要持续阅读的长篇 Markdown 文档
+- 长篇 Markdown 文档
 - AI 对话整理与二次编辑
-- 面向中文读者的技术讲义
-- 带有大量表格和代码块的说明文档
-- 希望导出 PDF 时仍保持稳定版式的内容
-
-如果你更偏好高装饰、强品牌感、或者非常夸张的标题视觉，这套主题可能不是最激进的选择；但如果你希望文档“看起来像认真整理过”，它会更合适。
+- 面向中文读者的技术笔记
+- 带有大量代码块和表格的说明文档
+- 需要导出 PDF 且希望版式稳定的内容
 
 ## 文件说明
 
 - `claude-like.css`：浅色主题
 - `claude-like-dark.css`：深色主题
-
-## 已优化的细节
-
-- 中文正文排版节奏
-- 标题层级清晰度
-- 粗体强调识别度
-- 行内代码胶囊样式
-- 代码块语法高亮
-- 表格边框与间距统一
-- Typora 编辑界面与导出风格一致性
-
-### 6. Tufte 风格旁注（Sidenote）
-
-主题内置了 Tufte 风格的旁注样式，可以在正文右侧边栏显示注释，适合补充说明、引用来源、术语解释等。
-
-**使用方式**
-
-在 Markdown 中写入：
-
-```html
-这里是正文内容<span class="sidenote">这是一条旁注，会显示在右侧边栏。</span>正文继续。
-```
-
-**为什么编辑器内需要插件？**
-
-Typora 编辑器不会将 inline HTML 的 class 渲染为真正的 DOM 属性。你写的 `<span class="sidenote">` 在编辑器里会变成：
-
-```
-span.md-html-inline                      ← Typora 自动生成的包裹层（没有 sidenote class）
-  ├─ span.md-meta  → 文本: <span class="sidenote">   ← 只是显示的文本
-  ├─ span.md-plain → 文本: 旁注内容
-  └─ span.md-meta  → 文本: </span>
-```
-
-`class="sidenote"` 只是纯文本字符串，CSS 无法根据元素的文本内容来选择元素——所以纯 CSS 无法在编辑器内识别旁注。[sidenote 插件](https://github.com/lr00rl/typora-plugin-lite)读取这段文本、给元素加上可被 CSS 识别的 class，之后所有样式（编号、浮动、边栏）都由 CSS 完成。
-
-三者的职责分工：
-
-```
-你:      写 <span class="sidenote">旁注内容</span>
-插件:    识别 → 加 .tpl-sidenote class + 插入 .tpl-sn-num 编号标记
-CSS:     所有视觉效果（上标编号、右侧浮动、响应式布局）
-```
-
-**编辑器内效果（需要 sidenote 插件）**
-
-- **宽屏 (>=1200px)**：正文中显示上标编号（¹ ² ³），旁注浮动到右侧边栏并显示匹配的编号前缀
-- **窄屏 (<1200px)**：旁注以行内高亮标签呈现
-- **编辑时**：光标所在段落的旁注和编号标记回到行内，方便编辑
-
-**各配置下的表现**
-
-| 场景 | Typora 编辑器内 | 导出 HTML/PDF |
-|------|------------------|---------------|
-| 主题 + 插件 | 上标编号 + 右侧边栏浮动（完整体验） | 旁注浮在右侧 |
-| 仅插件 | 上标编号 + 右侧边栏浮动（使用插件内置样式） | 无特殊样式 |
-| 仅主题 | 无效果（CSS 无法识别编辑器内的 sidenote） | 旁注浮在右侧 |
-| 都未安装 | 旁注内容作为普通文字显示 | 旁注内容作为普通文字显示 |
-
-> **推荐搭配**：安装 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 的 `sidenote` 插件以获得编辑器内的完整体验。主题 CSS 提供导出样式和编辑器样式规则，插件负责识别旁注并添加 CSS 可用的 class，两者互补。
-
-## 后续可继续扩展的方向
-
-- 增加专用缩略图与预览图
-- 补充更多导出场景截图
-- 为引用块、数学公式、任务列表继续细化细节
-- 增加更偏论文风格或更偏博客风格的变体
+- `README.md`：中文说明
+- `README_en.md`：英文说明
+- `tests/typora-theme-workspace`：演示工作区
 
 ## 总结
 
-Claude-like Theme 的核心不是“看起来像某个网页”，而是把那种安静、可信、适合长时间阅读的气质带进 Typora，并把它真正做成一套适合中文 Markdown 写作的主题。
-
-如果你的文档里经常同时出现标题、表格、代码块和长段说明文本，这套主题会比较适合你。
-
----
-
-`<a id="english-version"></a>`
-
-# Claude-like Theme
-
-A Typora theme inspired by a Claude-like reading experience, refined for Chinese writing and technical Markdown workflows.
-
-## Installation
-
-You can also download the latest theme files directly from the GitHub Releases page.
-
-1. Open Typora.
-2. Go to `Preferences -> Appearance -> Open Theme Folder`.
-3. Copy the following files into the theme folder:
-
-   - `claude-like.css`
-   - `claude-like-dark.css`
-4. Restart Typora.
-5. Choose one of the following from the Theme menu:
-
-   - `Claude-like`
-   - `Claude-like Dark`
-
-> **Recommended setting (Windows)**: Go to `Preferences -> Appearance` and set **Window Style** to **Unibody** (restart Typora to apply). The theme is optimized for Unibody mode on Windows.
-
-It is not a direct clone of a webpage. Instead, it keeps the calm, restrained, long-form reading atmosphere associated with a Claude-like style, while reworking typography, tables, code blocks, and export behavior for practical Markdown use.
-
-## Design Goals
-
-- Make long-form reading feel stable and low-noise.
-- Improve hierarchy between headings, body text, and emphasis in Chinese documents.
-- Keep tables, fenced code blocks, and inline code visually consistent.
-- Maintain a coherent experience across both light and dark modes.
-
-## Highlights
-
-### 1. A calm Claude-like reading atmosphere
-
-The theme uses low-saturation colors, soft contrast, and generous spacing. It works especially well for:
-
-- technical notes
-- course summaries
-- paper-reading notes
-- AI conversation archives
-- mixed Chinese-English documents
-
-Compared with more decorative Typora themes, this one focuses more on stability, readability, and sustained reading.
-
-### 2. Typography optimized for Chinese content
-
-Instead of copying an English-first web font stack, the theme treats body text, headings, emphasis, and code separately:
-
-- body text is tuned for long-form reading
-- headings and emphasized text use a clearer hierarchy
-- code uses a dedicated monospace stack for alignment and readability
-
-This makes the theme feel more natural in Chinese technical writing.
-
-### 3. A unified table system
-
-Tables are one of the easiest places for document styles to break down, so this theme explicitly standardizes:
-
-- hierarchy between headers and body cells
-- border strength
-- cell spacing
-- rhythm in mixed Chinese-English text
-- consistency between light and dark mode
-
-It is suitable for:
-
-- comparison tables
-- parameter sheets
-- experiment summaries
-- concept overview tables
-
-### 4. Code styles designed for everyday technical writing
-
-Code styling is split into two different layers:
-
-- inline code, which works like a lightweight visual tag
-- fenced code blocks, which keep their own background, borders, language label, and syntax highlighting
-
-The current highlighting scheme emphasizes:
-
-- keywords / built-ins: purple
-- strings: green
-- comments and line numbers: gray
-- default code text: neutral dark text
-
-This keeps code readable without becoming as visually aggressive as a full IDE theme.
-
-### 5. Light and dark themes maintained together
-
-The project currently includes:
-
-- `claude-like.css`
-- `claude-like-dark.css`
-
-The dark version is not a simple color inversion. Both themes are tuned independently in areas such as:
-
-- background and text contrast
-- table border intensity
-- code block background and syntax colors
-- sidebar and Typora UI transitions
-
-As a result, both modes follow the same reading logic.
-
-## Best Use Cases
-
-This theme is especially suitable for:
-
-- long Markdown documents
-- AI conversation cleanup and editing
-- Chinese technical notes
-- documents with many tables and code blocks
-- content that still needs to look stable after PDF export
-
-If you prefer highly decorative layouts or very dramatic heading styles, this theme is probably not the most aggressive choice. But if you want your document to feel clean, deliberate, and trustworthy, it is a good fit.
-
-## Files
-
-- `claude-like.css`: light theme
-- `claude-like-dark.css`: dark theme
-
-## Refined Details
-
-- Chinese body typography
-- heading hierarchy
-- stronger emphasis styling
-- inline code capsule style
-- fenced code syntax highlighting
-- unified table rhythm and borders
-- better consistency between Typora editing and export
-
-### 6. Tufte-style Sidenotes
-
-The theme includes Tufte-style sidenote CSS for margin annotations — perfect for supplementary notes, citations, and term definitions.
-
-**Usage**
-
-Write in Markdown:
-
-```html
-Body text here<span class="sidenote">This note appears in the right margin.</span> body continues.
-```
-
-**Why is a plugin needed for the editor?**
-
-Typora's editor does not render inline HTML classes as real DOM attributes. When you write `<span class="sidenote">`, the editor DOM becomes:
-
-```
-span.md-html-inline                       ← Typora's wrapper (no sidenote class)
-  ├─ span.md-meta  → text: <span class="sidenote">    ← just displayed text
-  ├─ span.md-plain → text: note content
-  └─ span.md-meta  → text: </span>
-```
-
-`class="sidenote"` is a plain text string — CSS cannot select elements based on their text content, so pure CSS cannot identify sidenotes in the editor. The [sidenote plugin](https://github.com/lr00rl/typora-plugin-lite) reads this text, adds a CSS-targetable class to the element, and from there all styling (numbering, floating, margin layout) is handled entirely by CSS.
-
-Responsibilities:
-
-```
-You:      Write <span class="sidenote">note content</span>
-Plugin:   Detect → add .tpl-sidenote class + insert .tpl-sn-num number marker
-CSS:      All visual effects (superscript numbers, right margin float, responsive layout)
-```
-
-**Editor behavior (requires sidenote plugin)**
-
-- **Wide screen (>=1200px)**: Superscript numbers appear in text (¹ ² ³), sidenotes float to the right margin with matching numbered prefixes
-- **Narrow screen (<1200px)**: Sidenotes display as highlighted inline tags
-- **While editing**: Sidenotes and number markers in the focused paragraph return inline for easy editing
-
-**Rendering by configuration**
-
-| Setup | Typora editor | Exported HTML/PDF |
-|-------|---------------|-------------------|
-| Theme + Plugin | Superscript numbers + right margin float (full experience) | Notes float right |
-| Plugin only | Superscript numbers + right margin float (built-in styles) | No special styling |
-| Theme only | No effect (CSS cannot detect sidenotes in the editor) | Notes float right |
-| Neither | Note content shows as plain text | Note content shows as plain text |
-
-> **Recommended**: Install the `sidenote` plugin from [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) for the full editor experience. The theme CSS provides styling rules for both the editor and export; the plugin identifies sidenotes and adds CSS-targetable classes. They complement each other.
-
-## Possible Future Extensions
-
-- dedicated thumbnails and preview images
-- more export screenshots
-- further refinement for blockquotes, math, and task lists
-- additional variants for academic or blog-oriented writing
-
-## Summary
-
-Claude-like Theme is not about mechanically imitating a webpage. Its goal is to bring a calm, credible, long-reading-friendly atmosphere into Typora and turn that into a theme that actually works for Chinese Markdown writing.
-
-If your documents often mix headings, long explanations, tables, and code blocks, this theme should fit that workflow well.
+如果你想要的不是“网页截图风”的 Typora 主题，而是一套更安静、可信、适合长期阅读与写作的中文 Markdown 主题，这个主题会更合适。它现在已经把文件树、大纲提示线、深层 sticky、代码块、表格和 sidenote 这些实际使用频率很高的部分一起收拢到了同一套视觉逻辑里。

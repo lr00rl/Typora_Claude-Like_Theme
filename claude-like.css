@@ -1101,14 +1101,14 @@ header {
  *   .file-node-background { position: absolute; left: 0; z-index: -1 }
  *
  * Strategy:
- *   • Vertical stem → ::before on .file-node-content  (height:100% of .file-tree-node, clips for last sibling)
- *   • L-connector   → ::after on .file-node-icon  (T-junction for mid-siblings, └ corner for last)
- *   • NOTE: contain: layout was intentionally NOT applied to .file-tree-node.
- *     Although it would anchor .file-node-background (position:absolute)
- *     per-row, it also creates a layout containment boundary that breaks
- *     Typora's native focusToFile() — which walks the offsetTop chain to
- *     compute the scroll target. With contain: layout the chain returns
- *     wrong values, causing the sidebar to jump on active-file switches.
+ *   • Vertical stem → background-image on .file-node-children (1px gradient)
+ *   • H-connector   → SVG background-image on .file-node-content::before
+ *   • L-connector   → SVG background-image on .file-node-content::after (last sibling)
+ *   • IMPORTANT: .file-node-children must NOT have position: relative.
+ *     It would create a new positioning context that breaks Typora's
+ *     native focusToFile() — which walks the offsetTop chain to
+ *     compute the scroll target, causing the sidebar to jump on
+ *     active-file switches. The background-image approach avoids this.
  * ──────────────────────────────────────────────────────────
  */
 
@@ -1228,24 +1228,20 @@ header {
 }
 
 /* ── Expanded children: indentation + shared vertical stem ── */
+/*
+ * Vertical stem is drawn via background-image instead of ::before,
+ * so we do NOT need position: relative here. Adding position: relative
+ * would create a new positioning context that breaks Typora's
+ * focusToFile() offsetTop chain, causing sidebar jump on file switch.
+ */
 #file-library-tree .file-node-root > .file-node-children,
 #file-library-tree .file-node-expanded:not(.file-node-root) > .file-node-children {
-    position: relative;
     padding-left: 20px;
     margin-left: 10px;
-}
-
-#file-library-tree .file-node-root > .file-node-children::before,
-#file-library-tree .file-node-expanded:not(.file-node-root) > .file-node-children::before {
-    content: "";
-    width: 1px;
-    height: 100%;
-    position: absolute;
-    z-index: 10;
-    left: 0;
-    top: 0;
-    background: rgba(0, 0, 0, 0.12);
-    display: block;
+    background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12));
+    background-size: 1px 100%;
+    background-repeat: no-repeat;
+    background-position: left top;
 }
 
 /* ── Anchor for branch connectors ── */

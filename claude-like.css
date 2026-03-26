@@ -424,21 +424,63 @@ tt {
     color: var(--code-muted-color) !important;
 }
 
-/* ── Code block line numbers (respects Typora preference toggle) ── */
-/* Show every line number, not just every 5th */
-.md-fences-with-lineno .CodeMirror-linenumber {
-    visibility: visible !important;
-    opacity: 1 !important;
-    min-width: 1.5em !important;
-    text-align: right;
-    padding-right: 6px !important;
-    font-size: 0.85em;
+/* ── Code block line numbers (CSS counters, respects Typora preference toggle) ──
+ * Uses CSS counters instead of Typora's native gutter to avoid lazy-rendering
+ * delay when scrolling. Only active when user enables line numbers in Typora. */
+
+/* ── Code block line numbers (CSS counters + user-select isolation) ──
+   • Hides native CodeMirror gutter (avoids lazy-rendering delay)
+   • Uses CSS counters on wrapper div for instant line numbers
+   • user-select:none on wrapper div blocks selection highlight on line-number area
+   • user-select:text on pre re-enables selection for code content only */
+
+/* 1. Hide native gutter */
+.md-fences-with-lineno .CodeMirror-gutters {
+    display: none !important;
+}
+.md-fences-with-lineno .CodeMirror-gutter-wrapper {
+    display: none !important;
+}
+.md-fences-with-lineno .CodeMirror-sizer {
+    margin-left: 0 !important;
 }
 
-/* Subtle gutter separator */
-.md-fences-with-lineno .CodeMirror-gutters {
-    border-right: 1px solid var(--code-border-color) !important;
-    background-color: transparent !important;
+/* 2. CSS counter line numbers on wrapper div */
+.md-fences-with-lineno .CodeMirror-code {
+    counter-reset: css-line-number;
+}
+.md-fences-with-lineno .CodeMirror-code > div {
+    position: relative !important;
+    padding-left: 2.75em !important;
+    user-select: none !important;
+}
+.md-fences-with-lineno .CodeMirror-code > div::before {
+    counter-increment: css-line-number;
+    content: counter(css-line-number);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.75em;
+    padding-right: 0.75em;
+    box-sizing: border-box;
+    text-align: right;
+    color: var(--code-text-color);
+    opacity: 0.38;
+    font-family: var(--font-mono) !important;
+    font-size: 1em;
+    line-height: 1.55;
+    pointer-events: none;
+    z-index: 10;
+}
+
+/* 3. Re-enable selection only for code content */
+.md-fences-with-lineno .CodeMirror-line {
+    user-select: text !important;
+}
+
+/* 4. Clip selection highlight to avoid covering the line number area */
+.md-fences-with-lineno .CodeMirror-selected {
+    clip-path: inset(0 0 0 2.75em) !important;
 }
 
 .md-fences .cm-keyword,

@@ -32,6 +32,7 @@
     --inline-code-color: #b14a40;
     --inline-code-bg-color: #f2eeea;
     --inline-code-border-color: #d7cec5;
+    --task-done-color: #b0a89e;
 }
 
 @include-when-export url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap);
@@ -467,13 +468,20 @@ tt {
 }
 
 .md-task-list-item.task-list-done {
-    opacity: 0.6;
-    color: var(--code-muted-color);
-    transition: all 0.3s ease;
+    color: var(--task-done-color);
+    transition: color 0.3s ease;
 }
 
 .md-task-list-item.task-list-done > p {
     text-decoration: line-through;
+}
+
+/* Dim sidenotes inside checked items — avoids opacity which creates a
+   compositing group that clips floated sidenotes at the parent's box edge */
+.md-task-list-item.task-list-done .tpl-sidenote,
+.md-task-list-item.task-list-done .sidenote,
+.md-task-list-item.task-list-done .marginnote {
+    color: var(--task-done-color);
 }
 
 /*

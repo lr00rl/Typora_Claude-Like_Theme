@@ -434,7 +434,7 @@ tt {
    • user-select:none on wrapper div blocks selection highlight on line-number area
    • user-select:text on pre re-enables selection for code content only */
 
-/* 1. Hide native gutter */
+/* 1. Hide native gutter but preserve margin space for cursor isolation */
 .md-fences-with-lineno .CodeMirror-gutters {
     display: none !important;
 }
@@ -442,7 +442,7 @@ tt {
     display: none !important;
 }
 .md-fences-with-lineno .CodeMirror-sizer {
-    margin-left: 0 !important;
+    margin-left: 2.75em !important;
 }
 
 /* 2. CSS counter line numbers on wrapper div */
@@ -451,14 +451,14 @@ tt {
 }
 .md-fences-with-lineno .CodeMirror-code > div {
     position: relative !important;
-    padding-left: 2.75em !important;
+    /* No padding-left here, use the sizer margin instead */
     user-select: none !important;
 }
 .md-fences-with-lineno .CodeMirror-code > div::before {
     counter-increment: css-line-number;
     content: counter(css-line-number);
     position: absolute;
-    left: 0;
+    left: -2.75em; /* Position inside the sizer's margin */
     top: 0;
     width: 2.75em;
     padding-right: 0.75em;
@@ -471,6 +471,7 @@ tt {
     line-height: 1.55;
     pointer-events: none;
     z-index: 10;
+    border-right: 1px solid var(--code-border-color);
 }
 
 /* 3. Re-enable selection only for code content */
@@ -479,8 +480,10 @@ tt {
 }
 
 /* 4. Clip selection highlight to avoid covering the line number area */
+/* Since we moved the content via margin, selection might already be isolated, 
+   but clip-path remains as a safety layer for some Typora versions. */
 .md-fences-with-lineno .CodeMirror-selected {
-    clip-path: inset(0 0 0 2.75em) !important;
+    clip-path: inset(0 0 0 0) !important; /* Reset since sizer handles the offset now */
 }
 
 .md-fences .cm-keyword,

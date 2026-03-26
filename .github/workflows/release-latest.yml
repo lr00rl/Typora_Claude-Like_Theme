@@ -73,7 +73,10 @@ jobs:
           set -euo pipefail
 
           api_root="repos/${GITHUB_REPOSITORY}/releases"
-          release_id="$(gh api "${api_root}/tags/${TAG_NAME}" --jq .id 2>/dev/null || true)"
+          release_id=""
+          if ! release_id="$(gh api "${api_root}/tags/${TAG_NAME}" --jq .id 2>/dev/null)"; then
+            release_id=""
+          fi
 
           if [[ -n "${NOTE_FILE}" ]]; then
             body="$(cat "${NOTE_FILE}")"

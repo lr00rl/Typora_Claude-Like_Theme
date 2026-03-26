@@ -8,6 +8,10 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -19,20 +23,153 @@ jobs:
       - name: Build zip package
         run: zip -j Typora_Claude-Like_Theme.zip claude-like.css claude-like-dark.css
 
-      - name: Publish release
-        uses: ncipollo/release-action@v1
-        with:
-          artifactErrorsFailBuild: true
-          artifacts: "claude-like.css,claude-like-dark.css,Typora_Claude-Like_Theme.zip"
-          body: |
-            Release for `${{ github.ref_name }}`.
+      - name: Resolve release metadata
+        id: meta
+        shell: bash
+        run: |
+          set -euo pipefail
 
-            Included files:
-            - `claude-like.css`
-            - `claude-like-dark.css`
-            - `Typora_Claude-Like_Theme.zip`
-          generateReleaseNotes: true
-          makeLatest: true
-          name: ${{ github.ref_name }}
-          prerelease: false
-          tag: ${{ github.ref_name }}
+          tag="${GITHUB_REF_NAME}"
+          tag_without_v="${tag#v}"
+          note_file=""
+
+          for candidate in \
+            "releases/${tag}.md" \
+            "releases/${tag_without_v}.md" \
+            "releases/latest.md"
+          do
+            if [[ -f "${candidate}" ]]; then
+              note_file="${candidate}"
+              break
+            fi
+          done
+
+          if [[ "${tag}" == *-* ]]; then
+            prerelease=true
+            make_latest=false
+          else
+            prerelease=false
+            make_latest=legacy
+          fi
+
+          {
+            echo "tag=${tag}"
+            echo "title=${tag}"
+            echo "prerelease=${prerelease}"
+            echo "make_latest=${make_latest}"
+            echo "note_file=${note_file}"
+          } >> "${GITHUB_OUTPUT}"
+
+      - name: Create or update release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.meta.outputs.tag }}
+          RELEASE_TITLE: ${{ steps.meta.outputs.title }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
+          MAKE_LATEST: ${{ steps.meta.outputs.make_latest }}
+          NOTE_FILE: ${{ steps.meta.outputs.note_file }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          api_root="repos/${GITHUB_REPOSITORY}/releases"
+          release_id="$(gh api "${api_root}/tags/${TAG_NAME}" --jq .id 2>/dev/null || true)"
+
+          if [[ -n "${NOTE_FILE}" ]]; then
+            body="$(cat "${NOTE_FILE}")"
+
+            if [[ -n "${release_id}" ]]; then
+              jq -n \
+                --arg name "${RELEASE_TITLE}" \
+                --arg body "${body}" \
+                --arg make_latest "${MAKE_LATEST}" \
+                --argjson prerelease "${PRERELEASE}" \
+                '{
+                  name: $name,
+                  body: $body,
+                  draft: false,
+                  prerelease: $prerelease,
+                  make_latest: $make_latest
+                }' \
+              | gh api --method PATCH "${api_root}/${release_id}" --input -
+            else
+              jq -n \
+                --arg tag_name "${TAG_NAME}" \
+                --arg name "${RELEASE_TITLE}" \
+                --arg body "${body}" \
+                --arg make_latest "${MAKE_LATEST}" \
+                --argjson prerelease "${PRERELEASE}" \
+                '{
+                  tag_name: $tag_name,
+                  name: $name,
+                  body: $body,
+                  draft: false,
+                  prerelease: $prerelease,
+                  make_latest: $make_latest
+                }' \
+              | gh api --method POST "${api_root}" --input -
+            fi
+          else
+            if [[ -n "${release_id}" ]]; then
+              jq -n \
+                --arg name "${RELEASE_TITLE}" \
+                --arg make_latest "${MAKE_LATEST}" \
+                --argjson prerelease "${PRERELEASE}" \
+                '{
+                  name: $name,
+                  draft: false,
+                  prerelease: $prerelease,
+                  make_latest: $make_latest
+                }' \
+              | gh api --method PATCH "${api_root}/${release_id}" --input -
+            else
+              jq -n \
+                --arg tag_name "${TAG_NAME}" \
+                --arg name "${RELEASE_TITLE}" \
+                --arg make_latest "${MAKE_LATEST}" \
+                --argjson prerelease "${PRERELEASE}" \
+                '{
+                  tag_name: $tag_name,
+                  name: $name,
+                  draft: false,
+                  prerelease: $prerelease,
+                  generate_release_notes: true,
+                  make_latest: $make_latest
+                }' \
+              | gh api --method POST "${api_root}" --input -
+            fi
+          fi
+
+      - name: Upload release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG_NAME: ${{ steps.meta.outputs.tag }}
+        run: |
+          gh release upload "${TAG_NAME}" \
+            claude-like.css \
+            claude-like-dark.css \
+            Typora_Claude-Like_Theme.zip \
+            --clobber
+
+      - name: Write job summary
+        env:
+          TAG_NAME: ${{ steps.meta.outputs.tag }}
+          PRERELEASE: ${{ steps.meta.outputs.prerelease }}
+          MAKE_LATEST: ${{ steps.meta.outputs.make_latest }}
+          NOTE_FILE: ${{ steps.meta.outputs.note_file }}
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          {
+            echo "## Release Summary"
+            echo
+            echo "- Tag: \`${TAG_NAME}\`"
+            echo "- Prerelease: \`${PRERELEASE}\`"
+            echo "- Latest policy: \`${MAKE_LATEST}\`"
+            if [[ -n "${NOTE_FILE}" ]]; then
+              echo "- Release notes source: \`${NOTE_FILE}\`"
+            else
+              echo "- Release notes source: GitHub auto-generated notes"
+            fi
+          } >> "${GITHUB_STEP_SUMMARY}"

@@ -1,0 +1,33 @@
+changelog:
+  exclude:
+    labels:
+      - skip-release-notes
+      - duplicate
+      - invalid
+      - question
+  categories:
+    - title: Features
+      labels:
+        - feat
+        - feature
+        - enhancement
+    - title: Fixes
+      labels:
+        - fix
+        - bug
+        - bugfix
+        - hotfix
+    - title: Docs
+      labels:
+        - docs
+        - documentation
+    - title: Maintenance
+      labels:
+        - chore
+        - ci
+        - build
+        - refactor
+        - dependencies
+    - title: Other Changes
+      labels:
+        - "*"

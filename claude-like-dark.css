@@ -424,6 +424,23 @@ tt {
     color: var(--code-muted-color) !important;
 }
 
+/* ── Code block line numbers (respects Typora preference toggle) ── */
+/* Show every line number, not just every 5th */
+.md-fences-with-lineno .CodeMirror-linenumber {
+    visibility: visible !important;
+    opacity: 1 !important;
+    min-width: 1.5em !important;
+    text-align: right;
+    padding-right: 6px !important;
+    font-size: 0.85em;
+}
+
+/* Subtle gutter separator */
+.md-fences-with-lineno .CodeMirror-gutters {
+    border-right: 1px solid var(--code-border-color) !important;
+    background-color: transparent !important;
+}
+
 .md-fences .cm-keyword,
 .md-fences .cm-def,
 .md-fences .cm-variable-2,

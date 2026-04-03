@@ -1,38 +1,38 @@
 :root {
-    --side-bar-bg-color: #171411;
-    --control-text-color: #a7998b;
-    --text-color: #ddd4ca;
-    --bg-color: #151210;
-    --window-bg-color: #181512;
-    --select-text-bg-color: #5a4234;
-    --item-hover-bg-color: rgba(213, 149, 103, 0.1);
-    --active-file-bg-color: rgba(213, 149, 103, 0.14);
-    --active-file-border-color: #cb8f63;
-    --code-bg-color: #1d1917;
-    --code-text-color: #e8dfd5;
-    --code-border-color: #332b25;
-    --border-color: #2f2924;
-    --accent-color: #d59567;
-    --heading-color: #f2e9df;
-    --quote-bg-color: #1c1815;
-    --quote-border-color: #4c4037;
-    --quote-text-color: #d0c2b4;
-    --table-alt-color: #1a1613;
+    --side-bar-bg-color: #171717;
+    --control-text-color: #8e8e8e;
+    --text-color: #d4d4d4;
+    --bg-color: #1e1e1e;
+    --window-bg-color: #141414;
+    --select-text-bg-color: #3d3d3d;
+    --item-hover-bg-color: rgba(229, 147, 90, 0.12);
+    --active-file-bg-color: rgba(229, 147, 90, 0.18);
+    --active-file-border-color: #e5935a;
+    --code-bg-color: #262626;
+    --code-text-color: #e0e0e0;
+    --code-border-color: #333333;
+    --border-color: #333333;
+    --accent-color: #e5935a;
+    --heading-color: #ffffff;
+    --quote-bg-color: #262626;
+    --quote-border-color: #444444;
+    --quote-text-color: #c0c0c0;
+    --table-alt-color: #232323;
     --font-body: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "PingFang SC", "Hiragino Sans GB", serif;
     --font-ui: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
     --font-mono: Menlo, Monaco, "SF Mono", Consolas, "Sarasa Mono SC", "Cascadia Code", monospace;
-    --table-border-strong-color: #5a4c41;
-    --table-row-border-color: rgba(232, 223, 213, 0.14);
-    --table-hover-color: rgba(213, 149, 103, 0.06);
-    --code-muted-color: #9f8f81;
-    --code-keyword-color: #b899ff;
-    --code-string-color: #81cb82;
-    --code-number-color: #d9a56f;
-    --code-symbol-color: #89b1ea;
-    --inline-code-color: #e1a092;
-    --inline-code-bg-color: #241d19;
-    --inline-code-border-color: #3a3029;
-    --task-done-color: #655b51;
+    --table-border-strong-color: #444444;
+    --table-row-border-color: rgba(255, 255, 255, 0.1);
+    --table-hover-color: rgba(229, 147, 90, 0.08);
+    --code-muted-color: #888888;
+    --code-keyword-color: #c6a0f6;
+    --code-string-color: #a6da95;
+    --code-number-color: #f5a97f;
+    --code-symbol-color: #8cadff;
+    --inline-code-color: #f2a899;
+    --inline-code-bg-color: #2d2d2d;
+    --inline-code-border-color: #3f3f3f;
+    --task-done-color: #707070;
 }
 
 @include-when-export url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap);
@@ -731,10 +731,10 @@ input.margin-toggle + .sidenote::before {
     padding: 1rem;
     font-size: 85%;
     line-height: 1.5;
-    background-color: #1f1b18;
+    background-color: #2a2a2a;
     border: 0;
     border-radius: 10px;
-    color: #b3a392;
+    color: #a0a0a0;
     margin-top: 0 !important;
 }
 
@@ -743,7 +743,7 @@ input.margin-toggle + .sidenote::before {
 }
 
 .md-mathjax-midline {
-    background: #211c18;
+    background: #2a2a2a;
 }
 
 #write > h3.md-focus:before {
@@ -781,16 +781,17 @@ input.margin-toggle + .sidenote::before {
 }
 
 .md-tag {
-    color: #a78c76;
+    color: #999999;
     opacity: 1;
 }
 
 .md-toc {
     margin-top: 20px;
     padding: 18px 20px;
-    background-color: #1a1613;
+    background-color: #252525;
     border-radius: 10px;
 }
+
 
 .sidebar-tabs {
     border-bottom: none;
@@ -809,7 +810,7 @@ input.margin-toggle + .sidenote::before {
 
 .file-tree-node.active > .file-node-content,
 .outline-item.active {
-    background-color: #262320 !important; /* solid color, slightly lighter than sidebar */
+    background-color: #333333 !important; /* neutral dark active background */
     box-shadow: inset 3px 0 0 var(--accent-color); /* Claude-like left bar indicator */
     font-weight: 500;
 }
@@ -819,18 +820,18 @@ input.margin-toggle + .sidenote::before {
 
 #typora-quick-open {
     border: 1px solid var(--border-color);
-    background-color: #1b1714;
+    background-color: #252525;
 }
 
 #typora-quick-open-item {
-    background-color: #171411;
-    border-color: #211c17 #2f2924 #2f2924 #251f1a;
+    background-color: #1a1a1a;
+    border-color: #333333;
     border-style: solid;
     border-width: 1px;
 }
 
 .on-focus-mode blockquote {
-    border-left-color: rgba(209, 138, 88, 0.2);
+    border-left-color: rgba(229, 147, 90, 0.2);
 }
 
 header,
@@ -854,7 +855,7 @@ footer {
 }
 
 .md-lang {
-    color: #b69177;
+    color: #e5935a;
 }
 
 #md-notification .btn {
@@ -862,12 +863,12 @@ footer {
 }
 
 .dropdown-menu {
-    background-color: #1a1613;
+    background-color: #252525;
     border-color: var(--border-color);
 }
 
 .dropdown-menu .divider {
-    border-color: #342d27;
+    border-color: #444444;
     opacity: 0.6;
 }
 
@@ -877,11 +878,11 @@ footer {
 
 .ty-preferences .nav-group-item.active {
     color: white;
-    background: #a8673e;
+    background: var(--accent-color);
 }
 
 .menu-item-container a.menu-style-btn {
-    background-color: #211b17;
+    background-color: #2a2a2a;
     background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
 }
 
@@ -1237,7 +1238,7 @@ header {
  */
 #file-library-tree .file-tree-node.active {
     position: sticky;
-    background: #262320; /* solid dark active background */
+    background: #333333; /* neutral dark active background */
     border-bottom: 1px solid rgba(255,255,255,0.03); /* very subtle dark mode line */
     box-shadow: 0 1px 2px rgba(0,0,0,0.15); /* slightly more depth for active file */
     z-index: 99;

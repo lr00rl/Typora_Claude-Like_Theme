@@ -246,6 +246,21 @@ blockquote {
     border-radius: 10px;
 }
 
+/* GitHub-style alerts ([!NOTE] etc.) render as div.md-alert, not <blockquote>.
+   Mirror the blockquote look so they visually align. */
+.md-alert {
+    border-left: 2px solid var(--quote-border-color);
+    background-color: var(--quote-bg-color);
+    padding: 0.55rem 1rem;
+    color: var(--quote-text-color);
+    border-radius: 10px;
+}
+.md-alert.md-alert-note    { border-left-color: var(--accent-color); }
+.md-alert.md-alert-tip     { border-left-color: #1f883d; }
+.md-alert.md-alert-important { border-left-color: #8250df; }
+.md-alert.md-alert-warning { border-left-color: #9a6700; }
+.md-alert.md-alert-caution { border-left-color: #cf222e; }
+
 blockquote blockquote {
     padding-right: 0;
 }

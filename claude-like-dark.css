@@ -246,20 +246,76 @@ blockquote {
     border-radius: 10px;
 }
 
-/* GitHub-style alerts ([!NOTE] etc.) render as div.md-alert, not <blockquote>.
-   Mirror the blockquote look so they visually align. */
+/* ── GitHub-style alerts ── */
 .md-alert {
-    border-left: 2px solid var(--quote-border-color);
+    border-left: 3px solid var(--quote-border-color);
     background-color: var(--quote-bg-color);
-    padding: 0.55rem 1rem;
-    color: var(--quote-text-color);
-    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    color: var(--text-color);
+    border-radius: 8px;
+    margin: 1rem 0;
+    line-height: 1.6;
 }
-.md-alert.md-alert-note    { border-left-color: var(--accent-color); }
-.md-alert.md-alert-tip     { border-left-color: #2ea043; }
-.md-alert.md-alert-important { border-left-color: #a371f7; }
-.md-alert.md-alert-warning { border-left-color: #d29922; }
-.md-alert.md-alert-caution { border-left-color: #f85149; }
+.md-alert > :last-child {
+    margin-bottom: 0;
+}
+/* Title row: icon + label */
+.md-alert .md-alert-text-container {
+    display: flex;
+    align-items: center;
+    gap: 0.15em;
+    margin-bottom: 0.25rem;
+}
+.md-alert .md-alert-text {
+    font-family: var(--font-ui);
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+.md-alert .md-alert-text svg {
+    width: 15px;
+    height: 15px;
+}
+/* Per-type tinting: border + background + title color */
+.md-alert.md-alert-note {
+    border-left-color: #5b9fd6;
+    background-color: rgba(91, 159, 214, 0.08);
+}
+.md-alert .md-alert-text-note { color: #5b9fd6; }
+
+.md-alert.md-alert-tip {
+    border-left-color: #4caf7a;
+    background-color: rgba(76, 175, 122, 0.08);
+}
+.md-alert .md-alert-text-tip { color: #4caf7a; }
+
+.md-alert.md-alert-important {
+    border-left-color: #a382e0;
+    background-color: rgba(163, 130, 224, 0.08);
+}
+.md-alert .md-alert-text-important { color: #a382e0; }
+
+.md-alert.md-alert-warning {
+    border-left-color: #d4a74a;
+    background-color: rgba(212, 167, 74, 0.08);
+}
+.md-alert .md-alert-text-warning { color: #d4a74a; }
+
+.md-alert.md-alert-caution {
+    border-left-color: #e06b63;
+    background-color: rgba(224, 107, 99, 0.08);
+}
+.md-alert .md-alert-text-caution { color: #e06b63; }
+/* Inline code inside alerts: inherit the alert tint */
+.md-alert code,
+.md-alert tt {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.08);
+}
+/* Alert paragraphs: tighten spacing */
+.md-alert p {
+    margin: 0.35em 0;
+}
 
 blockquote blockquote {
     padding-right: 0;
@@ -847,6 +903,10 @@ input.margin-toggle + .sidenote::before {
 
 .on-focus-mode blockquote {
     border-left-color: rgba(229, 147, 90, 0.2);
+}
+.on-focus-mode .md-alert {
+    border-left-color: rgba(229, 147, 90, 0.2);
+    background-color: transparent;
 }
 
 header,

@@ -512,8 +512,11 @@ tt {
 .md-fences-with-lineno .CodeMirror-gutter-wrapper {
     display: none !important;
 }
+.md-fences-with-lineno {
+    --code-line-number-gutter-width: 4.75em;
+}
 .md-fences-with-lineno .CodeMirror-sizer {
-    margin-left: 2.75em !important;
+    margin-left: var(--code-line-number-gutter-width) !important;
 }
 
 /* 2. CSS counter line numbers on wrapper div */
@@ -529,9 +532,9 @@ tt {
     counter-increment: css-line-number;
     content: counter(css-line-number);
     position: absolute;
-    left: -2.75em; /* Position inside the sizer's margin */
+    left: calc(var(--code-line-number-gutter-width) * -1);
     top: 0;
-    width: 2.75em;
+    width: var(--code-line-number-gutter-width);
     padding-right: 0.75em;
     box-sizing: border-box;
     text-align: right;

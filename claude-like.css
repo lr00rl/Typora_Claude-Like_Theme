@@ -14,9 +14,9 @@
     --border-color: #ddd5ca;
     --accent-color: #bc6a3a;
     --heading-color: #1c1815;
-    --quote-bg-color: #f3ede5;
-    --quote-border-color: #d8cbbb;
-    --quote-text-color: #625950;
+    --quote-bg-color: #f1f2f2;
+    --quote-border-color: #c5c9ca;
+    --quote-text-color: #555b5d;
     --table-alt-color: #f8f3ec;
     --font-body: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "PingFang SC", "Hiragino Sans GB", serif;
     --font-ui: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
@@ -47,7 +47,7 @@ body {
     font-family: var(--font-body);
     color: var(--text-color);
     background-color: var(--bg-color);
-    line-height: 1.62;
+    line-height: 1.57;
     letter-spacing: 0;
     font-weight: 400;
 }
@@ -241,9 +241,22 @@ ol:last-child {
 blockquote {
     border-left: 2px solid var(--quote-border-color);
     background-color: var(--quote-bg-color);
-    padding: 0.55rem 1rem;
+    padding: 0.55rem 0.85rem 0.55rem 0.7rem;
     color: var(--quote-text-color);
-    border-radius: 10px;
+    border-radius: 4px;
+    line-height: 1.5;
+}
+
+blockquote > p {
+    margin: 0.4em 0;
+}
+
+blockquote > :first-child {
+    margin-top: 0;
+}
+
+blockquote > :last-child {
+    margin-bottom: 0;
 }
 
 /* ── GitHub-style alerts ── */

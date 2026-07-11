@@ -10,13 +10,16 @@
     --active-file-border-color: #e5935a;
     --code-bg-color: #262626;
     --code-text-color: #e0e0e0;
-    --code-border-color: #333333;
+    --code-border-color: #3a3a3a;
     --border-color: #333333;
     --accent-color: #e5935a;
     --heading-color: #ffffff;
-    --quote-bg-color: #252627;
-    --quote-border-color: #515558;
-    --quote-text-color: #c4c7c9;
+    --quote-bg-color: #252626;
+    --quote-border-color: #4c4f4e;
+    --quote-text-color: #c6c7c6;
+    --link-color: #e5a06d;
+    --link-hover-color: #f2b489;
+    --link-underline-color: rgba(229, 160, 109, 0.42);
     --table-alt-color: #232323;
     --font-body: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "PingFang SC", "Hiragino Sans GB", serif;
     --font-ui: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
@@ -29,10 +32,10 @@
     --code-string-color: #a6da95;
     --code-number-color: #f5a97f;
     --code-symbol-color: #8cadff;
-    --inline-code-color: #f2a899;
-    --inline-code-bg-color: #2d2d2d;
-    --inline-code-border-color: #3f3f3f;
-    --task-done-color: #707070;
+    --inline-code-color: #e3a08f;
+    --inline-code-bg-color: #2b2b2b;
+    --inline-code-border-color: #444444;
+    --task-done-color: #929292;
 }
 
 @include-when-export url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap);
@@ -58,18 +61,6 @@ body {
     padding: 32px 32px 104px;
 }
 
-@media only screen and (min-width: 1400px) {
-    #write {
-        max-width: 900px;
-    }
-}
-
-@media only screen and (min-width: 1800px) {
-    #write {
-        max-width: 960px;
-    }
-}
-
 @media only screen and (max-width: 768px) {
     #write {
         padding: 24px 20px 84px;
@@ -81,14 +72,27 @@ body {
     margin-top: 30px;
 }
 
-a {
-    color: var(--accent-color);
+#write a {
+    color: var(--link-color);
+    text-decoration-line: underline;
+    text-decoration-color: var(--link-underline-color);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.14em;
+    text-decoration-skip-ink: auto;
+}
+
+#write a:hover {
+    color: var(--link-hover-color);
+    text-decoration-color: currentColor;
+}
+
+#write .md-toc a {
     text-decoration: none;
 }
 
-a:hover {
-    color: #efb892;
+#write .md-toc a:hover {
     text-decoration: underline;
+    text-underline-offset: 0.14em;
 }
 
 h1,
@@ -172,7 +176,9 @@ h5 {
 }
 
 h6 {
-    font-size: 1em;
+    font-family: var(--font-ui);
+    font-size: 0.93em;
+    letter-spacing: 0.02em;
     color: var(--control-text-color);
 }
 
@@ -185,10 +191,10 @@ table {
     margin: 0.78em 0;
 }
 
-strong,
-b {
-    font-family: var(--font-ui);
-    font-weight: 700;
+#write strong,
+#write b {
+    font-family: inherit;
+    font-weight: 600;
     color: var(--heading-color);
     font-synthesis: weight;
     letter-spacing: 0;
@@ -265,7 +271,7 @@ blockquote > :last-child {
     background-color: var(--quote-bg-color);
     padding: 0.75rem 1rem;
     color: var(--text-color);
-    border-radius: 8px;
+    border-radius: 6px;
     margin: 1rem 0;
     line-height: 1.6;
 }
@@ -420,8 +426,8 @@ table tbody tr:hover td {
 
 table td strong,
 table th strong {
-    font-family: var(--font-ui);
-    font-weight: 700;
+    font-family: inherit;
+    font-weight: 600;
     color: var(--heading-color);
 }
 
@@ -439,10 +445,12 @@ table th strong {
     border: 1px solid var(--code-border-color);
     background-color: var(--code-bg-color);
     color: var(--code-text-color);
-    border-radius: 8px;
-    padding: 0;
-    padding: 0.1em 0.38em;
+    border-radius: 6px;
+    margin-bottom: 18px;
+    margin-top: 14px;
+    padding: 0.9rem 1rem 0.85rem;
     font-size: 0.9em;
+    line-height: 1.55;
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.02);
 }
 
@@ -452,19 +460,10 @@ tt {
     border: 1px solid var(--inline-code-border-color);
     background-color: var(--inline-code-bg-color);
     color: var(--inline-code-color);
-    border-radius: 999px;
-    padding: 0.08em 0.42em 0.1em;
+    border-radius: 4px;
+    padding: 0.06em 0.3em 0.08em;
     font-size: 0.9em;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.03);
-}
-
-.md-fences {
-    margin-bottom: 18px;
-    margin-top: 14px;
-    padding: 0.9rem 1rem 0.85rem;
-    background-color: var(--code-bg-color);
-    line-height: 1.55;
-    color: var(--code-text-color);
+    box-shadow: none;
 }
 
 .md-fences pre,
@@ -820,7 +819,7 @@ input.margin-toggle + .sidenote::before {
     line-height: 1.5;
     background-color: #2a2a2a;
     border: 0;
-    border-radius: 10px;
+    border-radius: 8px;
     color: #a0a0a0;
     margin-top: 0 !important;
 }
@@ -876,7 +875,7 @@ input.margin-toggle + .sidenote::before {
     margin-top: 20px;
     padding: 18px 20px;
     background-color: #252525;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 

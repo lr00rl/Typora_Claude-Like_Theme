@@ -507,15 +507,20 @@ tt {
     color: var(--code-muted-color) !important;
 }
 
-/* ── Code block line numbers (CSS counters, respects Typora preference toggle) ──
- * Uses CSS counters instead of Typora's native gutter to avoid lazy-rendering
- * delay when scrolling. Only active when user enables line numbers in Typora. */
+/* ── Code block line numbers ───────────────────────────────────────────────
+   Replaces Typora's native CodeMirror gutter with CSS counters:
+   • counters render from the line divs themselves, so there is no second
+     column of DOM to keep in sync with the code
+   • user-select:none on the wrapper div keeps the line-number strip out of
+     copied text; user-select:text on the line puts the code back in
 
-/* ── Code block line numbers (CSS counters + user-select isolation) ──
-   • Hides native CodeMirror gutter (avoids lazy-rendering delay)
-   • Uses CSS counters on wrapper div for instant line numbers
-   • user-select:none on wrapper div blocks selection highlight on line-number area
-   • user-select:text on pre re-enables selection for code content only */
+   Only active when line numbers are enabled in Typora's preferences.
+
+   NOTE: counters cannot render before CodeMirror exists — .CodeMirror-code
+   only appears once Typora initializes the block, and Typora initializes only
+   the first 8 blocks up front. The rest stay grey until scrolled onto. Fixing
+   *that* is not something CSS can do; typora-plugin-lite's fence-enhance
+   plugin pre-renders the blocks. This file only has to size the result. */
 
 /* 1. Hide native gutter but preserve margin space for cursor isolation */
 .md-fences-with-lineno .CodeMirror-gutters {
@@ -524,8 +529,21 @@ tt {
 .md-fences-with-lineno .CodeMirror-gutter-wrapper {
     display: none !important;
 }
+
+/* 2. Gutter width scales with the block's own line count.
+      A fixed width is wrong in both directions: it wastes four columns of
+      indent on the six-line snippets that make up most of a document, and it
+      still clips a four-digit file. fence-enhance sets --tpl-lineno-digits per
+      block from its real line count; 1ch is exactly one digit in the mono face,
+      so N digits reserve N columns and nothing more.
+
+      The fallback of 4 applies when the plugin isn't installed — the theme then
+      behaves as it did before, just at a slightly tighter fixed width. */
 .md-fences-with-lineno {
-    --code-line-number-gutter-width: 4.75em;
+    --tpl-lineno-digits: 4;
+    --tpl-lineno-padding: 1.4em;
+    --code-line-number-gutter-width:
+        calc(var(--tpl-lineno-digits) * 1ch + var(--tpl-lineno-padding));
 }
 .md-fences-with-lineno .CodeMirror-sizer {
     margin-left: var(--code-line-number-gutter-width) !important;

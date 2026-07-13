@@ -933,7 +933,7 @@ input.margin-toggle + .sidenote::before {
 }
 
 .md-tag {
-    color: #a48870;
+    color: var(--ink-muted-color);
     opacity: 1;
 }
 
@@ -961,8 +961,8 @@ input.margin-toggle + .sidenote::before {
 
 .file-tree-node.active > .file-node-content,
 .outline-item.active {
-    background-color: #edeae2 !important; /* solid color, slightly darker than sidebar */
-    box-shadow: inset 3px 0 0 var(--accent-color); /* Claude-like left bar indicator */
+    background-color: var(--surface-active-color) !important;
+    box-shadow: inset 2px 0 0 var(--accent-color);
     font-weight: 500;
 }
 .file-tree-node.active > .file-node-content {
@@ -971,21 +971,21 @@ input.margin-toggle + .sidenote::before {
 
 #typora-quick-open {
     border: 1px solid var(--border-color);
-    background-color: #faf4ec;
+    background-color: var(--surface-subtle-color);
 }
 
 #typora-quick-open-item {
-    background-color: #fdf9f4;
-    border-color: #fff9f2 #e7dac8 #e7dac8 #efe1d0;
+    background-color: var(--surface-subtle-color);
+    border-color: var(--line-color);
     border-style: solid;
     border-width: 1px;
 }
 
 .on-focus-mode blockquote {
-    border-left-color: rgba(121, 83, 57, 0.14);
+    border-left-color: var(--focus-muted-border-color);
 }
 .on-focus-mode .md-alert {
-    border-left-color: rgba(121, 83, 57, 0.14);
+    border-left-color: var(--focus-muted-border-color);
     background-color: transparent;
 }
 
@@ -1010,7 +1010,7 @@ footer {
 }
 
 .md-lang {
-    color: #9f7b64;
+    color: var(--ink-muted-color);
 }
 
 #md-notification .btn {
@@ -1018,12 +1018,12 @@ footer {
 }
 
 .dropdown-menu {
-    background-color: #fcf7f1;
+    background-color: var(--surface-subtle-color);
     border-color: var(--border-color);
 }
 
 .dropdown-menu .divider {
-    border-color: #e5d7c7;
+    border-color: var(--line-color);
     opacity: 0.5;
 }
 
@@ -1032,13 +1032,13 @@ footer {
 }
 
 .ty-preferences .nav-group-item.active {
-    color: white;
-    background: #a86a45;
+    color: var(--canvas-color);
+    background: var(--accent-color);
 }
 
 .menu-item-container a.menu-style-btn {
-    background-color: #f6efe6;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0));
+    background-color: var(--surface-color);
+    background-image: none;
 }
 
 .megamenu-menu-header {
@@ -1180,7 +1180,7 @@ header {
     z-index: 30;
     left: 0;
     top: 0;
-    background: rgba(0,0,0,0.12);
+    background: var(--tree-line-color);
     display: block !important;
 }
 
@@ -1364,9 +1364,9 @@ header {
  */
 #file-library-tree .file-tree-node:not(.file-node-root):has(.file-tree-node.active) > .file-node-content {
     position: sticky;
-    background: var(--side-bar-bg-color); /* solid beige */
-    border-bottom: 1px solid rgba(0,0,0,0.05); /* more subtle underline */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.02); /* very subtle depth */
+    background: var(--side-bar-bg-color);
+    border-bottom: 1px solid var(--line-color);
+    box-shadow: 0 1px 2px var(--overlay-shadow-color);
     z-index: 100;
 }
 
@@ -1405,9 +1405,9 @@ header {
  */
 #file-library-tree .file-tree-node.active {
     position: sticky;
-    background: #edeae2; /* solid active background */
-    border-bottom: 1px solid rgba(0,0,0,0.05); /* more subtle underline */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.04); /* slightly more depth for active file */
+    background: var(--surface-active-color);
+    border-bottom: 1px solid var(--line-color);
+    box-shadow: 0 1px 2px var(--overlay-shadow-color);
     z-index: 99;
 }
 
@@ -1464,7 +1464,7 @@ header {
 #file-library-tree .file-node-expanded:not(.file-node-root) > .file-node-children {
     padding-left: 20px;
     margin-left: 10px;
-    background-image: linear-gradient(rgba(0,0,0,0.12), rgba(0,0,0,0.12));
+    background-image: linear-gradient(var(--tree-line-color), var(--tree-line-color));
     background-size: 1px 100%;
     background-repeat: no-repeat;
     background-position: left top;
@@ -1557,18 +1557,18 @@ header {
  * ──────────────────────────────────────────────────────────
  */
 .md-search-hit {
-    background: rgba(194, 113, 62, 0.22) !important;
+    background: var(--selection-soft-color) !important;
     color: var(--heading-color) !important;
     border-radius: 2px;
 }
 
 .md-search-select {
-    background: rgba(194, 113, 62, 0.42) !important;
+    background: var(--selection-strong-color) !important;
     color: var(--heading-color) !important;
     border-radius: 2px;
 }
 
 .ty-file-search-match-text {
-    background-color: rgba(194, 113, 62, 0.28);
+    background-color: var(--selection-soft-color);
     border-radius: 2px;
 }

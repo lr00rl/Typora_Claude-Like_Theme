@@ -933,7 +933,7 @@ input.margin-toggle + .sidenote::before {
 }
 
 .md-tag {
-    color: #999999;
+    color: var(--ink-muted-color);
     opacity: 1;
 }
 
@@ -962,8 +962,8 @@ input.margin-toggle + .sidenote::before {
 
 .file-tree-node.active > .file-node-content,
 .outline-item.active {
-    background-color: #333333 !important; /* neutral dark active background */
-    box-shadow: inset 3px 0 0 var(--accent-color); /* Claude-like left bar indicator */
+    background-color: var(--surface-active-color) !important;
+    box-shadow: inset 2px 0 0 var(--accent-color);
     font-weight: 500;
 }
 .file-tree-node.active > .file-node-content {
@@ -972,21 +972,21 @@ input.margin-toggle + .sidenote::before {
 
 #typora-quick-open {
     border: 1px solid var(--border-color);
-    background-color: #252525;
+    background-color: var(--surface-subtle-color);
 }
 
 #typora-quick-open-item {
-    background-color: #1a1a1a;
-    border-color: #333333;
+    background-color: var(--surface-subtle-color);
+    border-color: var(--line-color);
     border-style: solid;
     border-width: 1px;
 }
 
 .on-focus-mode blockquote {
-    border-left-color: rgba(229, 147, 90, 0.2);
+    border-left-color: var(--focus-muted-border-color);
 }
 .on-focus-mode .md-alert {
-    border-left-color: rgba(229, 147, 90, 0.2);
+    border-left-color: var(--focus-muted-border-color);
     background-color: transparent;
 }
 
@@ -1011,7 +1011,7 @@ footer {
 }
 
 .md-lang {
-    color: #e5935a;
+    color: var(--ink-muted-color);
 }
 
 #md-notification .btn {
@@ -1019,12 +1019,12 @@ footer {
 }
 
 .dropdown-menu {
-    background-color: #252525;
+    background-color: var(--surface-subtle-color);
     border-color: var(--border-color);
 }
 
 .dropdown-menu .divider {
-    border-color: #444444;
+    border-color: var(--line-color);
     opacity: 0.6;
 }
 
@@ -1033,13 +1033,13 @@ footer {
 }
 
 .ty-preferences .nav-group-item.active {
-    color: white;
+    color: var(--canvas-color);
     background: var(--accent-color);
 }
 
 .menu-item-container a.menu-style-btn {
-    background-color: #2a2a2a;
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0));
+    background-color: var(--surface-color);
+    background-image: none;
 }
 
 .megamenu-menu {
@@ -1070,6 +1070,18 @@ header,
 .megamenu-menu-panel {
     background: var(--bg-color) !important;
     color: var(--text-color) !important;
+}
+
+.megamenu-content h1,
+.megamenu-content h2,
+.megamenu-content h3,
+.megamenu-content-panel h1,
+.megamenu-content-panel h2,
+.megamenu-content-panel h3,
+.megamenu-menu-panel h1,
+.megamenu-menu-panel h2,
+.megamenu-menu-panel h3 {
+    color: var(--heading-color) !important;
 }
 
 #recent-file-panel {
@@ -1169,7 +1181,7 @@ header {
     z-index: 30;
     left: 0;
     top: 0;
-    background: rgba(255,255,255,0.16);
+    background: var(--tree-line-color);
     display: block !important;
 }
 
@@ -1353,9 +1365,9 @@ header {
  */
 #file-library-tree .file-tree-node:not(.file-node-root):has(.file-tree-node.active) > .file-node-content {
     position: sticky;
-    background: var(--side-bar-bg-color); /* solid dark */
-    border-bottom: 1px solid rgba(255,255,255,0.03); /* very subtle dark mode line */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.1); /* subtle depth */
+    background: var(--side-bar-bg-color);
+    border-bottom: 1px solid var(--line-color);
+    box-shadow: 0 1px 2px var(--overlay-shadow-color);
     z-index: 100;
 }
 
@@ -1394,9 +1406,9 @@ header {
  */
 #file-library-tree .file-tree-node.active {
     position: sticky;
-    background: #333333; /* neutral dark active background */
-    border-bottom: 1px solid rgba(255,255,255,0.03); /* very subtle dark mode line */
-    box-shadow: 0 1px 2px rgba(0,0,0,0.15); /* slightly more depth for active file */
+    background: var(--surface-active-color);
+    border-bottom: 1px solid var(--line-color);
+    box-shadow: 0 1px 2px var(--overlay-shadow-color);
     z-index: 99;
 }
 
@@ -1453,7 +1465,7 @@ header {
 #file-library-tree .file-node-expanded:not(.file-node-root) > .file-node-children {
     padding-left: 20px;
     margin-left: 10px;
-    background-image: linear-gradient(rgba(255,255,255,0.16), rgba(255,255,255,0.16));
+    background-image: linear-gradient(var(--tree-line-color), var(--tree-line-color));
     background-size: 1px 100%;
     background-repeat: no-repeat;
     background-position: left top;
@@ -1546,18 +1558,18 @@ header {
  * ──────────────────────────────────────────────────────────
  */
 .md-search-hit {
-    background: rgba(213, 149, 103, 0.25) !important;
+    background: var(--selection-soft-color) !important;
     color: var(--heading-color) !important;
     border-radius: 2px;
 }
 
 .md-search-select {
-    background: rgba(213, 149, 103, 0.45) !important;
+    background: var(--selection-strong-color) !important;
     color: var(--heading-color) !important;
     border-radius: 2px;
 }
 
 .ty-file-search-match-text {
-    background-color: rgba(213, 149, 103, 0.32);
+    background-color: var(--selection-soft-color);
     border-radius: 2px;
 }

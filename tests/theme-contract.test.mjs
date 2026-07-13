@@ -133,6 +133,56 @@ test('document components share restrained geometry and neutral surfaces', () =>
   }
 });
 
+test('light and dark themes keep the same structural selector contract', () => {
+  const lightSelectors = extractSelectorSet(themes[0].css);
+  const darkSelectors = extractSelectorSet(themes[1].css);
+  const lightOnly = [...lightSelectors].filter((selector) => !darkSelectors.has(selector));
+  const darkOnly = [...darkSelectors].filter((selector) => !lightSelectors.has(selector));
+
+  assert.deepEqual(
+    { lightOnly, darkOnly },
+    { lightOnly: [], darkOnly: [] },
+    'light/dark structural selectors drifted',
+  );
+});
+
+test('Typora chrome uses semantic surfaces and restrained active states', () => {
+  for (const theme of themes) {
+    expectDeclaration(
+      theme,
+      '.file-tree-node.active > .file-node-content, .outline-item.active',
+      'background-color',
+      'var(--surface-active-color)',
+    );
+    expectDeclaration(
+      theme,
+      '.file-tree-node.active > .file-node-content, .outline-item.active',
+      'box-shadow',
+      'inset 2px 0 0 var(--accent-color)',
+    );
+    expectDeclaration(theme, '#typora-quick-open', 'background-color', 'var(--surface-subtle-color)');
+    expectDeclaration(theme, '#typora-quick-open-item', 'background-color', 'var(--surface-subtle-color)');
+    expectDeclaration(theme, '.dropdown-menu', 'background-color', 'var(--surface-subtle-color)');
+    expectDeclaration(theme, '.md-search-hit', 'background', 'var(--selection-soft-color)');
+    expectDeclaration(theme, '.md-search-select', 'background', 'var(--selection-strong-color)');
+    expectDeclaration(theme, '.ty-file-search-match-text', 'background-color', 'var(--selection-soft-color)');
+  }
+});
+
+test('legacy peach and neutral chrome literals do not bypass the token system', () => {
+  const forbiddenByTheme = {
+    light: ['#faf4ec', '#fdf9f4', '#fff9f2', '#f6efe6', '#f6f1ea', '#f7f2eb'],
+    dark: ['#252525', '#2a2a2a', '#333333'],
+  };
+
+  for (const theme of themes) {
+    const declarations = cssDeclarationsOutsideRootAndDataUrls(theme.css).toLowerCase();
+    for (const literal of forbiddenByTheme[theme.name]) {
+      assert.ok(!declarations.includes(literal), `${theme.name}: legacy chrome color remains: ${literal}`);
+    }
+  }
+});
+
 function loadTheme(name, filename) {
   return {
     name,
@@ -174,6 +224,23 @@ function findRuleBody(css, expectedSelector) {
     if (selector === normalizedExpected) return match[2].trim();
   }
   return null;
+}
+
+function extractSelectorSet(css) {
+  const selectors = new Set();
+  const source = stripComments(css);
+  for (const match of source.matchAll(/([^{}]+)\{([^{}]*)\}/g)) {
+    const prelude = match[1].split(';').at(-1).trim();
+    if (!prelude || prelude.startsWith('@') || prelude === ':root') continue;
+    selectors.add(normalizeSelector(prelude));
+  }
+  return selectors;
+}
+
+function cssDeclarationsOutsideRootAndDataUrls(css) {
+  return stripComments(css)
+    .replace(/:root\s*\{[\s\S]*?\}/, '')
+    .replace(/url\("data:[\s\S]*?"\)/g, '');
 }
 
 function normalizeSelector(selector) {

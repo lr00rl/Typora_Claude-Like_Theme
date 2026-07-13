@@ -111,6 +111,28 @@ test('Songti prose uses the approved compact editorial rhythm', () => {
   }
 });
 
+test('document components share restrained geometry and neutral surfaces', () => {
+  for (const theme of themes) {
+    expectDeclaration(theme, 'blockquote', 'border-radius', 'var(--radius-inline)');
+    expectDeclaration(theme, 'blockquote', 'line-height', '1.48');
+    expectDeclaration(theme, 'blockquote', 'padding', '0.5rem 0.8rem 0.5rem 0.68rem');
+    expectDeclaration(theme, '.md-alert', 'border-radius', 'var(--radius-block)');
+    expectDeclaration(theme, '.md-fences', 'border-radius', 'var(--radius-block)');
+    expectDeclaration(theme, '.md-fences', 'line-height', '1.52');
+    expectDeclaration(theme, '.md-fences', 'box-shadow', 'none');
+    expectDeclaration(theme, 'code, tt', 'border-radius', 'var(--radius-inline)');
+    expectDeclaration(theme, '.md-toc', 'border-radius', 'var(--radius-block)');
+    expectDeclaration(theme, '.md-toc', 'background-color', 'var(--surface-color)');
+    expectDeclaration(theme, '#write pre.md-meta-block', 'border-radius', 'var(--radius-block)');
+    expectDeclaration(theme, '#write pre.md-meta-block', 'background-color', 'var(--surface-color)');
+    expectDeclaration(theme, '.md-mathjax-midline', 'background', 'var(--surface-subtle-color)');
+    expectDeclaration(theme, '#write img', 'outline', '1px solid var(--image-outline-color)');
+    expectDeclaration(theme, '#write img', 'outline-offset', '-1px');
+    expectDeclaration(theme, 'table td', 'font-size', '0.92rem');
+    expectDeclaration(theme, 'table td', 'line-height', '1.52');
+  }
+});
+
 function loadTheme(name, filename) {
   return {
     name,

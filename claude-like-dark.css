@@ -1,41 +1,82 @@
 :root {
-    --side-bar-bg-color: #171717;
-    --control-text-color: #8e8e8e;
-    --text-color: #d4d4d4;
-    --bg-color: #1e1e1e;
-    --window-bg-color: #141414;
-    --select-text-bg-color: #3d3d3d;
-    --item-hover-bg-color: rgba(229, 147, 90, 0.12);
-    --active-file-bg-color: rgba(229, 147, 90, 0.18);
-    --active-file-border-color: #e5935a;
-    --code-bg-color: #262626;
-    --code-text-color: #e0e0e0;
-    --code-border-color: #3a3a3a;
-    --border-color: #333333;
-    --accent-color: #e5935a;
-    --heading-color: #ffffff;
-    --quote-bg-color: #252626;
-    --quote-border-color: #4c4f4e;
-    --quote-text-color: #c6c7c6;
-    --link-color: #e5a06d;
-    --link-hover-color: #f2b489;
-    --link-underline-color: rgba(229, 160, 109, 0.42);
-    --table-alt-color: #232323;
+    /* Claude Editorial foundations: warm charcoal, neutral structure, soft accent. */
+    --canvas-color: #1f1e1c;
+    --sidebar-color: #181715;
+    --surface-color: #292826;
+    --surface-subtle-color: #242321;
+    --surface-active-color: #32302d;
+    --ink-color: #d7d4cf;
+    --ink-strong-color: #f1eee8;
+    --ink-muted-color: #9b9790;
+    --line-color: #3b3935;
+    --line-strong-color: #4b4842;
+    --accent-color: #e0a07a;
+    --accent-hover-color: #efb390;
+    --selection-soft-color: rgba(224, 160, 122, 0.22);
+    --selection-strong-color: rgba(224, 160, 122, 0.38);
+    --radius-inline: 3px;
+    --radius-block: 6px;
+
+    /* Typora-facing aliases. */
+    --side-bar-bg-color: var(--sidebar-color);
+    --control-text-color: var(--ink-muted-color);
+    --text-color: var(--ink-color);
+    --bg-color: var(--canvas-color);
+    --window-bg-color: #151412;
+    --select-text-bg-color: var(--selection-soft-color);
+    --item-hover-bg-color: rgba(224, 160, 122, 0.11);
+    --active-file-bg-color: var(--surface-active-color);
+    --active-file-border-color: var(--accent-color);
+    --code-bg-color: var(--surface-color);
+    --code-text-color: #e1ddd7;
+    --code-border-color: var(--line-color);
+    --border-color: var(--line-color);
+    --heading-color: var(--ink-strong-color);
+    --quote-bg-color: var(--surface-color);
+    --quote-border-color: #4d4b47;
+    --quote-text-color: #c9c6c0;
+    --link-color: var(--accent-color);
+    --link-hover-color: var(--accent-hover-color);
+    --link-underline-color: rgba(224, 160, 122, 0.42);
+    --table-alt-color: var(--surface-subtle-color);
     --font-body: "Songti SC", "Noto Serif CJK SC", "Source Han Serif SC", "PingFang SC", "Hiragino Sans GB", serif;
     --font-ui: "PingFang SC", "Hiragino Sans GB", "Noto Sans CJK SC", "Source Han Sans SC", "Microsoft YaHei", "Segoe UI", sans-serif;
     --font-mono: Menlo, Monaco, "SF Mono", Consolas, "Sarasa Mono SC", "Cascadia Code", monospace;
-    --table-border-strong-color: #444444;
-    --table-row-border-color: rgba(255, 255, 255, 0.1);
-    --table-hover-color: rgba(229, 147, 90, 0.08);
-    --code-muted-color: #888888;
-    --code-keyword-color: #c6a0f6;
-    --code-string-color: #a6da95;
-    --code-number-color: #f5a97f;
-    --code-symbol-color: #8cadff;
+    --table-border-strong-color: var(--line-strong-color);
+    --table-row-border-color: rgba(215, 212, 207, 0.1);
+    --table-hover-color: rgba(215, 212, 207, 0.045);
+    --code-muted-color: #96918a;
+    --code-keyword-color: #c1a7d3;
+    --code-string-color: #9abd8f;
+    --code-number-color: #d8a07d;
+    --code-symbol-color: #8eafd0;
     --inline-code-color: #e3a08f;
-    --inline-code-bg-color: #2b2b2b;
-    --inline-code-border-color: #444444;
-    --task-done-color: #929292;
+    --inline-code-bg-color: #2d2b29;
+    --inline-code-border-color: var(--line-strong-color);
+    --task-done-color: #9b9790;
+    --image-outline-color: rgba(241, 238, 232, 0.1);
+    --tree-line-color: rgba(241, 238, 232, 0.14);
+    --overlay-shadow-color: rgba(0, 0, 0, 0.24);
+    --focus-muted-border-color: rgba(215, 212, 207, 0.2);
+
+    /* Semantic status colors stay subordinate to the single theme accent. */
+    --alert-note-color: #74add5;
+    --alert-note-surface: rgba(116, 173, 213, 0.1);
+    --alert-tip-color: #6db58a;
+    --alert-tip-surface: rgba(109, 181, 138, 0.1);
+    --alert-important-color: #af95d6;
+    --alert-important-surface: rgba(175, 149, 214, 0.1);
+    --alert-warning-color: #d0a85a;
+    --alert-warning-surface: rgba(208, 168, 90, 0.1);
+    --alert-caution-color: #dc837a;
+    --alert-caution-surface: rgba(220, 131, 122, 0.1);
+    --alert-inline-surface: rgba(241, 238, 232, 0.05);
+    --alert-inline-border: rgba(241, 238, 232, 0.08);
+
+    /* Plugin fallbacks; runtime plugins remain authoritative when present. */
+    --tpl-sidenote-width: 250px;
+    --tpl-sidenote-reserve: 300px;
+    --tpl-sidenote-offset: 280px;
 }
 
 @include-when-export url(https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Source+Serif+4:wght@400;600;700&display=swap);
@@ -297,39 +338,39 @@ blockquote > :last-child {
 }
 /* Per-type tinting: border + background + title color */
 .md-alert.md-alert-note {
-    border-left-color: #5b9fd6;
-    background-color: rgba(91, 159, 214, 0.08);
+    border-left-color: var(--alert-note-color);
+    background-color: var(--alert-note-surface);
 }
-.md-alert .md-alert-text-note { color: #5b9fd6; }
+.md-alert .md-alert-text-note { color: var(--alert-note-color); }
 
 .md-alert.md-alert-tip {
-    border-left-color: #4caf7a;
-    background-color: rgba(76, 175, 122, 0.08);
+    border-left-color: var(--alert-tip-color);
+    background-color: var(--alert-tip-surface);
 }
-.md-alert .md-alert-text-tip { color: #4caf7a; }
+.md-alert .md-alert-text-tip { color: var(--alert-tip-color); }
 
 .md-alert.md-alert-important {
-    border-left-color: #a382e0;
-    background-color: rgba(163, 130, 224, 0.08);
+    border-left-color: var(--alert-important-color);
+    background-color: var(--alert-important-surface);
 }
-.md-alert .md-alert-text-important { color: #a382e0; }
+.md-alert .md-alert-text-important { color: var(--alert-important-color); }
 
 .md-alert.md-alert-warning {
-    border-left-color: #d4a74a;
-    background-color: rgba(212, 167, 74, 0.08);
+    border-left-color: var(--alert-warning-color);
+    background-color: var(--alert-warning-surface);
 }
-.md-alert .md-alert-text-warning { color: #d4a74a; }
+.md-alert .md-alert-text-warning { color: var(--alert-warning-color); }
 
 .md-alert.md-alert-caution {
-    border-left-color: #e06b63;
-    background-color: rgba(224, 107, 99, 0.08);
+    border-left-color: var(--alert-caution-color);
+    background-color: var(--alert-caution-surface);
 }
-.md-alert .md-alert-text-caution { color: #e06b63; }
+.md-alert .md-alert-text-caution { color: var(--alert-caution-color); }
 /* Inline code inside alerts: inherit the alert tint */
 .md-alert code,
 .md-alert tt {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.08);
+    background-color: var(--alert-inline-surface);
+    border-color: var(--alert-inline-border);
 }
 /* Alert paragraphs: tighten spacing */
 .md-alert p {

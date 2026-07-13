@@ -117,6 +117,7 @@ test('document components share restrained geometry and neutral surfaces', () =>
     expectDeclaration(theme, 'blockquote', 'line-height', '1.48');
     expectDeclaration(theme, 'blockquote', 'padding', '0.5rem 0.8rem 0.5rem 0.68rem');
     expectDeclaration(theme, '.md-alert', 'border-radius', 'var(--radius-block)');
+    expectDeclaration(theme, '.md-alert .md-alert-text-container', 'display', 'inline-flex');
     expectDeclaration(theme, '.md-fences', 'border-radius', 'var(--radius-block)');
     expectDeclaration(theme, '.md-fences', 'line-height', '1.52');
     expectDeclaration(theme, '.md-fences', 'box-shadow', 'none');

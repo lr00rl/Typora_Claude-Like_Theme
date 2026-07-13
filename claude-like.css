@@ -326,7 +326,7 @@ blockquote > :last-child {
 }
 /* Title row: icon + label */
 .md-alert .md-alert-text-container {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     gap: 0.15em;
     margin-bottom: 0.25rem;

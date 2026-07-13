@@ -91,7 +91,7 @@ body {
     font-family: var(--font-body);
     color: var(--text-color);
     background-color: var(--bg-color);
-    line-height: 1.57;
+    line-height: 1.58;
     letter-spacing: 0;
     font-weight: 400;
 }
@@ -200,25 +200,30 @@ h1 {
 
 h2 {
     font-size: 1.48em;
-    line-height: 1.2;
+    line-height: 1.22;
+    margin-top: 1.72rem;
 }
 
 h3 {
     font-size: 1.24em;
     line-height: 1.32;
+    margin-top: 1.5rem;
 }
 
 h4 {
     font-size: 1.12em;
+    margin-top: 1.3rem;
 }
 
 h5 {
     font-size: 1em;
+    margin-top: 1.3rem;
 }
 
 h6 {
     font-family: var(--font-ui);
-    font-size: 0.93em;
+    font-size: 0.91em;
+    margin-top: 1.3rem;
     letter-spacing: 0.02em;
     color: var(--control-text-color);
 }
@@ -229,7 +234,7 @@ ul,
 ol,
 dl,
 table {
-    margin: 0.78em 0;
+    margin: 0.74em 0;
 }
 
 #write strong,

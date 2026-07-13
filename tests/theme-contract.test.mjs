@@ -97,6 +97,20 @@ test('both stylesheets have balanced blocks', () => {
   }
 });
 
+test('Songti prose uses the approved compact editorial rhythm', () => {
+  for (const theme of themes) {
+    expectDeclaration(theme, 'body', 'font-family', 'var(--font-body)');
+    expectDeclaration(theme, 'body', 'line-height', '1.58');
+    expectDeclaration(theme, 'body', 'letter-spacing', '0');
+    expectDeclaration(theme, 'p, blockquote, ul, ol, dl, table', 'margin', '0.74em 0');
+    expectDeclaration(theme, 'h2', 'line-height', '1.22');
+    expectDeclaration(theme, 'h2', 'margin-top', '1.72rem');
+    expectDeclaration(theme, 'h3', 'margin-top', '1.5rem');
+    expectDeclaration(theme, 'h6', 'font-family', 'var(--font-ui)');
+    expectDeclaration(theme, 'h6', 'font-size', '0.91em');
+  }
+});
+
 function loadTheme(name, filename) {
   return {
     name,

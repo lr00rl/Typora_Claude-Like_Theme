@@ -29,6 +29,22 @@ const requiredSemanticTokens = [
   '--radius-block',
 ];
 
+const requiredPluginTokens = [
+  '--tpl-ui-surface',
+  '--tpl-ui-surface-subtle',
+  '--tpl-ui-text',
+  '--tpl-ui-muted',
+  '--tpl-ui-border',
+  '--tpl-ui-accent',
+  '--tpl-ui-accent-hover',
+  '--tpl-ui-selection',
+  '--tpl-ui-success',
+  '--tpl-ui-danger',
+  '--tpl-ui-font',
+  '--tpl-ui-mono',
+  '--tpl-ui-radius',
+];
+
 test('both themes expose the Claude Editorial semantic token contract', () => {
   for (const theme of themes) {
     const variables = parseRootVariables(theme.css);
@@ -82,6 +98,23 @@ test('plugin-owned Sidenote and Fence Enhance variables remain available', () =>
     ]) {
       assert.match(theme.css, new RegExp(escapeRegExp(variable)), `${theme.name}: missing ${variable}`);
     }
+  }
+});
+
+test('runtime plugin chrome inherits the theme semantic token bridge', () => {
+  for (const theme of themes) {
+    const variables = parseRootVariables(theme.css);
+    for (const token of requiredPluginTokens) {
+      assert.ok(variables.has(token), `${theme.name}: missing ${token}`);
+    }
+  }
+});
+
+test('the theme does not own runtime sidenote geometry', () => {
+  for (const theme of themes) {
+    const css = stripComments(theme.css);
+    assert.doesNotMatch(css, /#write:has\(\.tpl-sidenote\)/, `${theme.name}: runtime #write width belongs to the plugin`);
+    assert.doesNotMatch(css, /\.md-html-inline\.tpl-sidenote\s*\{/, `${theme.name}: runtime sidenote layout belongs to the plugin`);
   }
 });
 

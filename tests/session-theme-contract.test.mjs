@@ -27,15 +27,18 @@ test('session variants import their matching base theme and one shared transcrip
   }
 });
 
-test('shared transcript layout supports roles, scrollable tools, branches, narrow windows, and print', () => {
+test('shared transcript layout supports navigable turn headings, scrollable tools, branches, narrow windows, and print', () => {
   for (const selector of [
     'p:first-of-type > span[md-inline="code"]:only-child code',
     'figure.md-table-fig:first-of-type',
-    'p:has(> span[md-inline="strong"]:only-child)',
-    'p:has(> span[md-inline="em"]:only-child)',
+    'h2:has(+ blockquote)',
+    'h2:has(+ h3)',
+    'h3:has(+ blockquote)',
+    'h4:has(+ .md-fences)',
+    'h5:has(+ blockquote)',
+    'h6:has(+ .md-fences)',
     '+ blockquote',
     '+ .md-fences',
-    '> h3',
     'hr + p:last-child > span[md-inline="em"]:only-child > em',
   ]) {
     assert.match(common, new RegExp(escapeRegExp(selector)), `missing ${selector}`);
@@ -62,9 +65,11 @@ test('session styles remain structurally balanced', () => {
 
 test('showcase uses the live-editor standard Markdown grammar without raw HTML blocks', () => {
   assert.match(showcase, /^`SESSION ARCHIVE`$/m);
-  assert.match(showcase, /^\*\*YOU ·/m);
-  assert.match(showcase, /^\*CODEX ·/m);
-  assert.match(showcase, /^\*\*TOOL · CALL ·/m);
+  assert.match(showcase, /^## YOU ·/m);
+  assert.match(showcase, /^## CODEX Replying$/m);
+  assert.match(showcase, /^### \*CODEX · commentary ·/m);
+  assert.match(showcase, /^#### TOOL · exec_command · CALL ·/m);
+  assert.match(showcase, /^### CODEX Answered ·/m);
   assert.match(showcase, /^```text$/m);
   assert.doesNotMatch(showcase, /<(?:script|style|details|h6|dl|section)\b/i);
 });

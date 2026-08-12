@@ -110,7 +110,7 @@
 
 ### 5. Agent Session 对话归档
 
-`Claude-like Session` 与 `Claude-like Session Dark` 是明确选择才会启用的对话笔记变体。它们不把聊天做成一堆厚重气泡，而是保留文档式阅读：角色标签小而克制，用户与 Agent 只用很浅的底色区分，工具调用用可滚动的紧凑代码块显示，alternate branch 与 subagent 证据放在轻量侧线附录中。
+`Claude-like Session` 与 `Claude-like Session Dark` 是明确选择才会启用的对话笔记变体。它们不把聊天做成一堆厚重气泡，而是保留文档式阅读：每轮用户提示词、Agent 回复组、可见 commentary、工具证据与最终回答使用 H2–H6 建立可跳转的大纲；角色标签小而克制，正文只用很浅的底色区分，长工具输出在紧凑代码块内滚动，alternate branch 与 subagent 证据放在更深层级的轻量附录中。分卷的 `index.md` 与前后卷导航也沿用相同版式。
 
 配套的 `typora-plugin-lite/tools/session-archive` CLI 可以从 Codex 或 Claude Code 的本地 session ID 生成对应 Markdown。主题仓库提供的无敏感信息示例位于：
 

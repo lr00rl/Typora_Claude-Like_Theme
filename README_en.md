@@ -110,7 +110,7 @@ Narrow-screen example:
 
 ### 5. Agent Session Archives
 
-`Claude-like Session` and `Claude-like Session Dark` are opt-in document variants for locally archived Codex and Claude Code conversations. The design stays editorial rather than imitating chat bubbles: compact role labels, very light user/assistant surfaces, scrollable tool evidence, and restrained appendices for alternate branches and subagents.
+`Claude-like Session` and `Claude-like Session Dark` are opt-in document variants for locally archived Codex and Claude Code conversations. The design stays editorial rather than imitating chat bubbles: H2–H6 turn structure gives Typora's outline panel direct prompt/reply/commentary/tool/final-answer navigation, role labels remain compact, user/assistant surfaces stay very light, tool evidence scrolls in place, and alternate branches or subagents sit in restrained deeper appendices. Split archive indexes and part navigation use the same presentation.
 
 The companion `typora-plugin-lite/tools/session-archive` CLI generates this Markdown contract from a local provider session ID. A secret-free sample is available at `tests/typora-theme-workspace/agent-session-showcase.md`.
 

@@ -1,8 +1,7 @@
 /*
  * Opt-in transcript presentation shared by the light/dark Session variants.
- * The selectors intentionally target the generator's standard-Markdown
- * structure; Typora keeps raw HTML as editable blocks, so no custom DOM class
- * is required for the live editor.
+ * The archive generator uses heading depth as its navigation contract, so the
+ * same outline remains useful in Typora's outline panel and plain Markdown.
  */
 
 #write {
@@ -66,30 +65,84 @@
     font-weight: 500;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child),
-#write > p:has(> span[md-inline="em"]:only-child) {
-    margin: 1.42rem 0 0.34rem;
-    color: var(--ink-muted-color);
+#write > :is(h2, h3, h4, h5, h6) {
+    scroll-margin-top: 2.2rem;
     font-family: var(--font-ui);
-    font-size: 0.68rem;
-    line-height: 1.3;
-    letter-spacing: 0.065em;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) > span[md-inline="strong"] > strong,
-#write > p:has(> span[md-inline="em"]:only-child) > span[md-inline="em"] > em {
-    font-style: normal;
-    font-weight: 600;
-}
-
-#write > p:has(> span[md-inline="strong"]:only-child):has(+ blockquote) > span[md-inline="strong"] > strong {
+/* Every prompt/final-answer landmark remains an H2 for the outline panel. */
+#write > h2:has(+ blockquote) {
+    margin: 2.8rem 0 0.42rem;
     color: var(--accent-color);
+    font-size: 0.76rem;
+    font-weight: 650;
+    line-height: 1.35;
+    letter-spacing: 0.045em;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + blockquote,
-#write > p:has(> span[md-inline="em"]:only-child) + blockquote {
+/* Reply containers and the recovered-branch appendix are quiet group labels. */
+#write > h2:has(+ h3),
+#write > h2:has(+ h4) {
+    margin: 1.35rem 0 0.6rem;
+    padding-top: 0.7rem;
+    border-top: 1px solid var(--line-color);
+    color: var(--ink-muted-color);
+    font-size: 0.69rem;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0.075em;
+}
+
+/* Visible agent messages, final answers, and nested branch messages. */
+#write > h3:has(+ blockquote),
+#write > h5:has(+ blockquote) {
+    margin: 1.18rem 0 0.34rem;
+    color: var(--ink-muted-color);
+    font-size: 0.72rem;
+    font-weight: 520;
+    line-height: 1.35;
+    letter-spacing: 0.035em;
+}
+
+#write > h3:has(+ blockquote) > em,
+#write > h5:has(+ blockquote) > em {
+    color: inherit;
+    font-weight: inherit;
+}
+
+/* Branch names remain subordinate to the appendix H2. */
+#write > h3:not(:has(+ blockquote)) {
+    margin: 1.45rem 0 0.62rem;
+    padding-left: 0.72rem;
+    border-left: 1px dashed var(--line-strong-color);
+    color: var(--ink-muted-color);
+    font-size: 0.84rem;
+    font-weight: 520;
+}
+
+/* A recovered user prompt is H4; ordinary tool evidence is also H4 but is
+ * distinguished structurally by the following fenced block. */
+#write > h4:has(+ blockquote) {
+    margin: 1.12rem 0 0.34rem;
+    color: var(--accent-color);
+    font-size: 0.7rem;
+    font-weight: 620;
+    letter-spacing: 0.04em;
+}
+
+#write > h4:has(+ .md-fences),
+#write > h6:has(+ .md-fences) {
+    margin: 1rem 0 0.34rem;
+    color: var(--ink-muted-color);
+    font-size: 0.66rem;
+    font-weight: 560;
+    line-height: 1.35;
+    letter-spacing: 0.035em;
+}
+
+#write > :is(h2, h3, h4, h5):has(+ blockquote) + blockquote {
     margin: 0;
-    padding: 0.76rem 0.96rem 0.8rem;
+    padding: 0.78rem 0.98rem 0.82rem;
     border: 0;
     border-left: 1px solid var(--agent-session-spine);
     border-radius: 0 var(--radius-block) var(--radius-block) 0;
@@ -99,25 +152,24 @@
     box-shadow: none;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + blockquote {
+#write > :is(h2, h4):has(+ blockquote) + blockquote {
     background: var(--agent-session-user-surface);
 }
 
-#write > p:has(> span[md-inline="em"]:only-child) + blockquote {
+#write > :is(h3, h5):has(+ blockquote) + blockquote {
     background: var(--agent-session-assistant-surface);
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + blockquote > :first-child,
-#write > p:has(> span[md-inline="em"]:only-child) + blockquote > :first-child {
+#write > :is(h2, h3, h4, h5):has(+ blockquote) + blockquote > :first-child {
     margin-top: 0;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + blockquote > :last-child,
-#write > p:has(> span[md-inline="em"]:only-child) + blockquote > :last-child {
+#write > :is(h2, h3, h4, h5):has(+ blockquote) + blockquote > :last-child {
     margin-bottom: 0;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + .md-fences {
+#write > h4:has(+ .md-fences) + .md-fences,
+#write > h6:has(+ .md-fences) + .md-fences {
     max-height: min(48vh, 520px);
     margin: 0;
     padding: 0.68rem 0.78rem;
@@ -131,20 +183,12 @@
     overflow-wrap: anywhere;
 }
 
-#write > p:has(> span[md-inline="strong"]:only-child) + .md-fences .CodeMirror,
-#write > p:has(> span[md-inline="strong"]:only-child) + .md-fences .CodeMirror-scroll {
+#write > h4:has(+ .md-fences) + .md-fences .CodeMirror,
+#write > h4:has(+ .md-fences) + .md-fences .CodeMirror-scroll,
+#write > h6:has(+ .md-fences) + .md-fences .CodeMirror,
+#write > h6:has(+ .md-fences) + .md-fences .CodeMirror-scroll {
     max-height: inherit;
     background: transparent;
-}
-
-#write > h3 {
-    margin: 1.3rem 0 0.6rem;
-    padding-left: 0.72rem;
-    border-left: 1px dashed var(--line-strong-color);
-    color: var(--ink-muted-color);
-    font-family: var(--font-ui);
-    font-size: 0.86rem;
-    font-weight: 500;
 }
 
 #write > hr + p:last-child > span[md-inline="em"]:only-child > em {
@@ -170,6 +214,10 @@
         padding-top: 0.48rem;
         padding-bottom: 0;
     }
+
+    #write > h2:has(+ blockquote) {
+        margin-top: 2.2rem;
+    }
 }
 
 @media print {
@@ -178,13 +226,18 @@
         padding: 0;
     }
 
-    #write > p:has(> span[md-inline="strong"]:only-child) + blockquote,
-    #write > p:has(> span[md-inline="em"]:only-child) + blockquote,
-    #write > p:has(> span[md-inline="strong"]:only-child) + .md-fences {
+    #write > :is(h2, h3, h4, h5, h6) {
+        break-after: avoid;
+    }
+
+    #write > :is(h2, h3, h4, h5):has(+ blockquote) + blockquote,
+    #write > h4:has(+ .md-fences) + .md-fences,
+    #write > h6:has(+ .md-fences) + .md-fences {
         break-inside: avoid;
     }
 
-    #write > p:has(> span[md-inline="strong"]:only-child) + .md-fences {
+    #write > h4:has(+ .md-fences) + .md-fences,
+    #write > h6:has(+ .md-fences) + .md-fences {
         max-height: none;
         overflow: visible;
         white-space: pre-wrap;

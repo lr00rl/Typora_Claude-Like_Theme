@@ -18,6 +18,9 @@
 
 - `claude-like.css`：浅色主题
 - `claude-like-dark.css`：深色主题
+- `claude-like-session.css`：Agent 对话归档浅色变体
+- `claude-like-session-dark.css`：Agent 对话归档深色变体
+- `session/agent-session.css`：两个对话变体共享的排版规则
 - `tests/typora-theme-workspace`：用于验证文件树、大纲、Markdown 和 sidenote 的演示工作区
 
 ## 最近能力整理
@@ -41,10 +44,15 @@
 3. 将下列文件复制到主题目录：
    - `claude-like.css`
    - `claude-like-dark.css`
+   - `claude-like-session.css`
+   - `claude-like-session-dark.css`
+   - 整个 `session` 文件夹
 4. 重启 Typora。
 5. 在主题菜单中选择：
    - `Claude-like`
    - `Claude-like Dark`
+   - `Claude-like Session`
+   - `Claude-like Session Dark`
 
 > Windows 推荐将 `偏好设置 -> 外观 -> 窗口样式` 设为 `一体化`，重启后生效。当前主题在 Windows 一体化模式下更稳定。
 
@@ -100,6 +108,16 @@
 
 ![Sidenote Narrow Preview](image/sidenote-example-narrow.png)
 
+### 5. Agent Session 对话归档
+
+`Claude-like Session` 与 `Claude-like Session Dark` 是明确选择才会启用的对话笔记变体。它们不把聊天做成一堆厚重气泡，而是保留文档式阅读：角色标签小而克制，用户与 Agent 只用很浅的底色区分，工具调用用可滚动的紧凑代码块显示，alternate branch 与 subagent 证据放在轻量侧线附录中。
+
+配套的 `typora-plugin-lite/tools/session-archive` CLI 可以从 Codex 或 Claude Code 的本地 session ID 生成对应 Markdown。主题仓库提供的无敏感信息示例位于：
+
+- `tests/typora-theme-workspace/agent-session-showcase.md`
+
+窄屏时 metadata 自动变为单列，角色时间换行；打印时移除编辑器宽度限制，并避免对话块在页间被不必要拆开。
+
 ## 演示工作区
 
 仓库内新增了一套专门给 Typora 使用的测试工作区：
@@ -128,6 +146,9 @@
 
 - `claude-like.css`：浅色主题
 - `claude-like-dark.css`：深色主题
+- `claude-like-session.css`：对话归档浅色变体
+- `claude-like-session-dark.css`：对话归档深色变体
+- `session/agent-session.css`：对话变体共享规则
 - `README.md`：中文说明
 - `README_en.md`：英文说明
 - `tests/typora-theme-workspace`：演示工作区

@@ -1,0 +1,9 @@
+@import url("./claude-like.css");
+@import url("./session/agent-session.css");
+
+:root {
+    --agent-session-user-surface: rgba(168, 93, 59, 0.055);
+    --agent-session-assistant-surface: rgba(52, 49, 46, 0.024);
+    --agent-session-tool-surface: var(--surface-subtle-color);
+    --agent-session-spine: rgba(111, 107, 102, 0.34);
+}

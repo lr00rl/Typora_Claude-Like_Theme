@@ -1,3 +1,8 @@
 *.zip
 .DS_Store
 .worktrees/
+
+# agent 运行态，不是主题的一部分
+.omc/
+.claude/
+.codex

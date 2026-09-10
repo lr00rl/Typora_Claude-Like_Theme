@@ -18,9 +18,6 @@ The repository currently includes:
 
 - `claude-like.css`: light theme
 - `claude-like-dark.css`: dark theme
-- `claude-like-session.css`: light agent-session archive variant
-- `claude-like-session-dark.css`: dark agent-session archive variant
-- `session/agent-session.css`: transcript layout shared by both variants
 - `tests/typora-theme-workspace`: a Typora demo workspace for sidebar, outline, Markdown, and sidenote verification
 
 ## Recent Feature Set
@@ -44,15 +41,10 @@ You can also download the latest files from GitHub Releases.
 3. Copy these files into the theme folder:
    - `claude-like.css`
    - `claude-like-dark.css`
-   - `claude-like-session.css`
-   - `claude-like-session-dark.css`
-   - the complete `session` folder
 4. Restart Typora.
 5. Select one of these themes:
    - `Claude-like`
    - `Claude-like Dark`
-   - `Claude-like Session`
-   - `Claude-like Session Dark`
 
 > On Windows, `Preferences -> Appearance -> Window Style -> Unibody` is recommended. The theme is tuned for that mode.
 
@@ -108,18 +100,12 @@ Narrow-screen example:
 
 ![Sidenote Narrow Preview](image/sidenote-example-narrow.png)
 
-### 5. Agent Session Archives
-
-`Claude-like Session` and `Claude-like Session Dark` are opt-in document variants for locally archived Codex and Claude Code conversations. The design stays editorial rather than imitating chat bubbles: H2–H6 turn structure gives Typora's outline panel direct prompt/reply/commentary/tool/final-answer navigation, role labels remain compact, user/assistant surfaces stay very light, tool evidence scrolls in place, and alternate branches or subagents sit in restrained deeper appendices. Split archive indexes and part navigation use the same presentation.
-
-The companion `typora-plugin-lite/tools/session-archive` CLI generates this Markdown contract from a local provider session ID. A secret-free sample is available at `tests/typora-theme-workspace/agent-session-showcase.md`.
-
 ## Demo Workspace
 
 This repository now includes a dedicated Typora demo workspace:
 
 - root folder: `tests/typora-theme-workspace`
-- main showcase file: `tests/typora-theme-workspace/01-library-lab/02-ancestor-breadcrumb/01-outline-lab/02-markdown-lab/03-code-lab/04-sidenote-lab/05-export-lab/06-depth-lab/07-tree-line-lab/08-sticky-lab/09-active-file-lab/10-showcase/typora-theme-showcase.md`
+- main showcase file: `tests/typora-theme-workspace/01-library-lab/02-ancestor-breadcrumb/03-outline-lab/04-markdown-lab/typora-theme-showcase.md`
 
 Recommended test flow:
 
@@ -142,9 +128,6 @@ Recommended test flow:
 
 - `claude-like.css`: light theme
 - `claude-like-dark.css`: dark theme
-- `claude-like-session.css`: light session archive variant
-- `claude-like-session-dark.css`: dark session archive variant
-- `session/agent-session.css`: shared archive layout
 - `README.md`: Chinese documentation
 - `README_en.md`: English documentation
 - `tests/typora-theme-workspace`: demo workspace

@@ -1148,10 +1148,6 @@ header {
     z-index: 48;
 }
 
-.outline-content ul li::before {
-    /* Inherit the stem logic from parent li::before */
-}
-
 .outline-content li .outline-item {
     margin: 0 0 0 7px;
     padding: 3px 8px;
@@ -1192,10 +1188,6 @@ header {
 }
 
 .outline-item::after {
-    display: none;
-}
-
-.outline-content > li:first-of-type > .outline-item::after {
     display: none;
 }
 
@@ -1454,7 +1446,7 @@ header {
 /* Leaf / collapsed last sibling: extend mask upward to match L-junction offset */
 #file-library-tree .file-node-children > div:last-of-type.file-library-file-node > .file-node-content::before,
 #file-library-tree .file-node-children > div:last-of-type.file-node-collapsed > .file-node-content::before {
-    top: -0px;
+    top: 0;
 }
 
 #file-library-tree .file-node-children > div:last-of-type > .file-node-content::after {

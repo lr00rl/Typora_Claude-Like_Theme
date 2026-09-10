@@ -4,7 +4,7 @@
 
 - 文件树连接线会出现在左侧 File Library。
 - 大纲连接线会出现在右侧 Outline。
-- 主测试文件位于最深层：`01-library-lab/02-ancestor-breadcrumb/01-outline-lab/02-markdown-lab/03-code-lab/04-sidenote-lab/05-export-lab/06-depth-lab/07-tree-line-lab/08-sticky-lab/09-active-file-lab/10-showcase/typora-theme-showcase.md`
+- 主测试文件位于最深层：`01-library-lab/02-ancestor-breadcrumb/03-outline-lab/04-markdown-lab/typora-theme-showcase.md`
 
 ## 建议操作
 

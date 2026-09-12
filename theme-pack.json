@@ -1,0 +1,11 @@
+{
+  "typ": "typora-plugin-lite-theme-pack",
+  "version": 1,
+  "name": "Claude Like",
+  "files": [
+    { "path": "claude-like.css" },
+    { "path": "claude-like-dark.css" }
+  ],
+  "light": "claude-like.css",
+  "dark": "claude-like-dark.css"
+}

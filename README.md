@@ -18,6 +18,7 @@
 
 - `claude-like.css`：浅色主题（由 `src/` 生成，安装时复制这个文件）
 - `claude-like-dark.css`：深色主题
+- `theme-pack.json`：给 `typora-plugin-lite` 的 theme-pack 插件读的 bootloader（`typ` / `version` / `files`）
 - `src/`：浅色/深色 token 和共用规则。改主题改这里，然后运行 `node scripts/build.mjs`
 - `tests/typora-theme-workspace`：用于验证文件树、大纲、Markdown 和 sidenote 的演示工作区
 
@@ -35,7 +36,7 @@
 
 ## 安装
 
-也可以直接从 GitHub Releases 下载最新主题文件。
+装 [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite) 即可。安装脚本会把这两个 CSS 写进 Typora 的官方主题目录，第一次打开就能在「主题」菜单里选 Claude Like 或继续用 GitHub、Newsprint 等内置主题。仓库根目录的 `theme-pack.json` 是给插件认的 bootloader。也可以继续手动复制，或从 GitHub Releases 下载。
 
 1. 打开 Typora。
 2. 进入 `设置 / 偏好设置 -> 外观 -> 打开主题文件夹`。

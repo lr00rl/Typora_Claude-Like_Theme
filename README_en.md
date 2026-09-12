@@ -18,6 +18,7 @@ The repository currently includes:
 
 - `claude-like.css`: light theme (generated from `src/`; this is the file Typora loads)
 - `claude-like-dark.css`: dark theme
+- `theme-pack.json`: bootloader consumed by the `theme-pack` plugin in `typora-plugin-lite` (`typ` / `version` / `files`)
 - `src/`: light/dark tokens plus the shared rules. Edit here, then run `node scripts/build.mjs`
 - `tests/typora-theme-workspace`: a Typora demo workspace for sidebar, outline, Markdown, and sidenote verification
 
@@ -35,7 +36,7 @@ Based on the current CSS and recent `git log`, the theme now focuses on these ar
 
 ## Installation
 
-You can also download the latest files from GitHub Releases.
+Install [typora-plugin-lite](https://github.com/lr00rl/typora-plugin-lite). The installer writes these CSS files into Typora's official theme folder so the Themes menu can list them on the first launch after install. It does not switch you off the theme you already use. The repo-root `theme-pack.json` is the bootloader the plugin reads. Manual copy and GitHub Releases still work.
 
 1. Open Typora.
 2. Go to `Preferences -> Appearance -> Open Theme Folder`.

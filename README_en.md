@@ -16,8 +16,9 @@ This is not a one-to-one clone of a webpage. The goal is to bring a calmer, more
 
 The repository currently includes:
 
-- `claude-like.css`: light theme
+- `claude-like.css`: light theme (generated from `src/`; this is the file Typora loads)
 - `claude-like-dark.css`: dark theme
+- `src/`: light/dark tokens plus the shared rules. Edit here, then run `node scripts/build.mjs`
 - `tests/typora-theme-workspace`: a Typora demo workspace for sidebar, outline, Markdown, and sidenote verification
 
 ## Recent Feature Set
@@ -126,8 +127,9 @@ Recommended test flow:
 
 ## Files
 
-- `claude-like.css`: light theme
-- `claude-like-dark.css`: dark theme
+- `src/tokens-light.css` / `src/tokens-dark.css`: light and dark color tokens
+- `src/shared.css`: structural rules shared by both themes
+- `claude-like.css` / `claude-like-dark.css`: the Typora files, assembled by `node scripts/build.mjs`
 - `README.md`: Chinese documentation
 - `README_en.md`: English documentation
 - `tests/typora-theme-workspace`: demo workspace

@@ -4,5 +4,6 @@
 
 # agent 运行态，不是主题的一部分
 .omc/
+.omx/
 .claude/
 .codex

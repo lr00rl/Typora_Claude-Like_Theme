@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
+import { assembleTheme } from '../scripts/build.mjs';
 
 const repoRoot = fileURLToPath(new URL('..', import.meta.url));
 
@@ -203,6 +204,27 @@ test('Typora chrome uses semantic surfaces and restrained active states', () => 
   }
 });
 
+test('published stylesheets match the assembled source', () => {
+  assert.equal(themes[0].css, assembleTheme('light'));
+  assert.equal(themes[1].css, assembleTheme('dark'));
+});
+
+test('light and dark share one structural stylesheet', () => {
+  const light = structuralCss(themes[0].css);
+  const dark = structuralCss(themes[1].css);
+  assert.equal(light, dark, 'light/dark structure drifted; edit src/shared.css and rebuild');
+});
+
+test('tree connectors follow --tree-line-color instead of baked strokes', () => {
+  for (const theme of themes) {
+    const css = stripComments(theme.css);
+    assert.doesNotMatch(css, /stroke='rgba/, `${theme.name}: tree SVG still bakes an rgba stroke`);
+    assert.match(css, /background-color:\s*var\(--tree-line-color\)/);
+    assert.match(css, /--tree-mask:\s*url\("data:image\/svg\+xml/);
+    assert.match(css, /-webkit-mask-image:\s*var\(--tree-mask\)/);
+  }
+});
+
 test('legacy peach and neutral chrome literals do not bypass the token system', () => {
   const forbiddenByTheme = {
     light: ['#faf4ec', '#fdf9f4', '#fff9f2', '#f6efe6', '#f6f1ea', '#f7f2eb'],
@@ -279,6 +301,13 @@ function cssDeclarationsOutsideRootAndDataUrls(css) {
 
 function normalizeSelector(selector) {
   return selector.trim().replace(/\s+/g, ' ');
+}
+
+function structuralCss(css) {
+  return stripComments(css)
+    .replace(/:root\s*\{[\s\S]*?\}/, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 function stripComments(css) {

@@ -16,8 +16,9 @@
 
 当前仓库包含：
 
-- `claude-like.css`：浅色主题
+- `claude-like.css`：浅色主题（由 `src/` 生成，安装时复制这个文件）
 - `claude-like-dark.css`：深色主题
+- `src/`：浅色/深色 token 和共用规则。改主题改这里，然后运行 `node scripts/build.mjs`
 - `tests/typora-theme-workspace`：用于验证文件树、大纲、Markdown 和 sidenote 的演示工作区
 
 ## 最近能力整理
@@ -126,8 +127,9 @@
 
 ## 文件说明
 
-- `claude-like.css`：浅色主题
-- `claude-like-dark.css`：深色主题
+- `src/tokens-light.css` / `src/tokens-dark.css`：浅色和深色的颜色 token
+- `src/shared.css`：两套主题共用的结构规则
+- `claude-like.css` / `claude-like-dark.css`：给 Typora 用的发布文件，由 `node scripts/build.mjs` 拼出来
 - `README.md`：中文说明
 - `README_en.md`：英文说明
 - `tests/typora-theme-workspace`：演示工作区

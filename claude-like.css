@@ -1,3 +1,5 @@
+/* Generated from src/ by scripts/build.mjs. Edit tokens and shared, then run: node scripts/build.mjs */
+
 :root {
     /* Claude Editorial foundations: warm paper, neutral structure, scarce accent. */
     --canvas-color: #faf9f6;
@@ -178,30 +180,15 @@ h6:hover a.anchor {
 }
 
 h1 tt,
-h1 code {
-    font-size: inherit;
-}
-
+h1 code,
 h2 tt,
-h2 code {
-    font-size: inherit;
-}
-
+h2 code,
 h3 tt,
-h3 code {
-    font-size: inherit;
-}
-
+h3 code,
 h4 tt,
-h4 code {
-    font-size: inherit;
-}
-
+h4 code,
 h5 tt,
-h5 code {
-    font-size: inherit;
-}
-
+h5 code,
 h6 tt,
 h6 code {
     font-size: inherit;
@@ -722,8 +709,8 @@ tt {
 @media (min-width: 1200px) {
     #write:has(.sidenote),
     #write:has(.marginnote) {
-        max-width: 1160px;
-        padding-right: 300px;
+        max-width: calc(860px + var(--tpl-sidenote-reserve));
+        padding-right: var(--tpl-sidenote-reserve);
     }
 }
 
@@ -767,8 +754,8 @@ input.margin-toggle + .sidenote::before {
     .sidenote, .marginnote {
         float: right;
         clear: right;
-        margin-right: -280px;
-        width: 250px;
+        margin-right: calc(0px - var(--tpl-sidenote-offset));
+        width: var(--tpl-sidenote-width);
         margin-top: 0;
         margin-bottom: 1rem;
         border-left: 2px solid var(--border-color);
@@ -843,16 +830,8 @@ input.margin-toggle + .sidenote::before {
     top: 0.375rem;
 }
 
-#write > h4.md-focus:before {
-    left: -1.5625rem;
-    top: 0.285714286rem;
-}
-
-#write > h5.md-focus:before {
-    left: -1.5625rem;
-    top: 0.285714286rem;
-}
-
+#write > h4.md-focus:before,
+#write > h5.md-focus:before,
 #write > h6.md-focus:before {
     left: -1.5625rem;
     top: 0.285714286rem;
@@ -868,7 +847,7 @@ input.margin-toggle + .sidenote::before {
 }
 
 .md-image > .md-meta {
-    border-radius: 3px;
+    border-radius: var(--radius-inline);
     padding: 2px 0 0 4px;
     font-size: 0.9em;
     color: inherit;
@@ -995,8 +974,8 @@ footer {
 }
 
 .megamenu-menu {
-    background-color: var(--side-bar-bg-color);
-    color: var(--text-color);
+    background-color: var(--side-bar-bg-color) !important;
+    color: var(--text-color) !important;
 }
 
 header,
@@ -1044,7 +1023,7 @@ header,
 
 .megamenu-menu-panel .btn {
     border: 1px solid var(--border-color);
-    background: var(--quote-bg-color) !important;
+    background: var(--surface-color) !important;
     color: var(--text-color);
 }
 
@@ -1166,7 +1145,7 @@ header {
     text-decoration: none;
 }
 
-/* Horizontal branch connector using SVG */
+/* Horizontal branch connector: SVG path as a mask, tinted by --tree-line-color */
 .outline-content li .outline-item::before {
     content: '';
     width: 8px;
@@ -1175,15 +1154,17 @@ header {
     z-index: 30;
     left: -7px;
     top: 0;
-    /* 普通项：T 型衔接（13px 处横线），透明度 0.12 */
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Cpath d='M0.5,13 L8,13' stroke='rgba(0,0,0,0.12)' stroke-width='1'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Cpath d='M0.5,13 L8,13' stroke='white' stroke-width='1'/%3E%3C/svg%3E");
+    background-color: var(--tree-line-color);
+    -webkit-mask-image: var(--tree-mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-image: var(--tree-mask);
+    mask-repeat: no-repeat;
 }
 
-/* 最后一项：圆角 L 型衔接 */
+/* Last sibling: rounded L-junction */
 .outline-content li:last-of-type > .outline-item::before {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Cpath d='M0.5,0 L0.5,6 Q0,13 6,13 L8,13' stroke='rgba(0,0,0,0.12)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    top: 0px;
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='14'%3E%3Cpath d='M0.5,0 L0.5,6 Q0,13 6,13 L8,13' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E");
 }
 
 .outline-item::after {
@@ -1261,14 +1242,14 @@ header {
  *   .file-node-background { position: absolute; left: 0; z-index: -1 }
  *
  * Strategy:
- *   • Vertical stem → background-image on .file-node-children (1px gradient)
- *   • H-connector   → SVG background-image on .file-node-content::before
- *   • L-connector   → SVG background-image on .file-node-content::after (last sibling)
+ *   • Vertical stem → 1px gradient on .file-node-children
+ *   • H-connector   → SVG mask on .file-node-content::before
+ *   • L-connector   → SVG mask on .file-node-content::after (last sibling)
  *   • IMPORTANT: .file-node-children must NOT have position: relative.
  *     It would create a new positioning context that breaks Typora's
  *     native focusToFile() — which walks the offsetTop chain to
  *     compute the scroll target, causing the sidebar to jump on
- *     active-file switches. The background-image approach avoids this.
+ *     active-file switches. The background-image stem avoids this.
  * ──────────────────────────────────────────────────────────
  */
 
@@ -1388,12 +1369,7 @@ header {
 }
 
 /* ── Expanded children: indentation + shared vertical stem ── */
-/*
- * Vertical stem is drawn via background-image instead of ::before,
- * so we do NOT need position: relative here. Adding position: relative
- * would create a new positioning context that breaks Typora's
- * focusToFile() offsetTop chain, causing sidebar jump on file switch.
- */
+/* No position:relative: see the file-library tree comment above. */
 #file-library-tree .file-node-root > .file-node-children,
 #file-library-tree .file-node-expanded:not(.file-node-root) > .file-node-children {
     padding-left: 20px;
@@ -1413,36 +1389,42 @@ header {
 #file-library-tree .file-tree-node:not(.file-node-root) > .file-node-content::before {
     content: "";
     position: absolute;
-    /* 核心修正：容器 padding 是 20px，所以这里必须是 -20px 才能对上容器的最左侧竖线 */
+    /* Match the 20px padding on .file-node-children */
     left: -20px;
     top: 0;
     width: 20px;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30'%3E%3Cpath d='M0.5,14 L20,14' stroke='rgba(0,0,0,0.12)' stroke-width='1'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30'%3E%3Cpath d='M0.5,14 L20,14' stroke='white' stroke-width='1'/%3E%3C/svg%3E");
+    background-color: var(--tree-line-color);
+    -webkit-mask-image: var(--tree-mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-image: var(--tree-mask);
+    mask-repeat: no-repeat;
     z-index: 20;
 }
 
 /* Leaf files and collapsed folders */
 #file-library-tree .file-library-file-node > .file-node-content::before,
 #file-library-tree .file-node-collapsed > .file-node-content::before {
-    left: -20px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30'%3E%3Cpath d='M0.5,26 L20,26' stroke='rgba(0,0,0,0.12)' stroke-width='1'/%3E%3C/svg%3E");
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='30'%3E%3Cpath d='M0.5,26 L20,26' stroke='white' stroke-width='1'/%3E%3C/svg%3E");
     top: -12px;
 }
 
-/* ── Last sibling: Mask the container's vertical line and draw L-junction ── */
+/* ── Last sibling: cover the stem, then draw an L-junction on ::after ── */
 #file-library-tree .file-node-children > div:last-of-type > .file-node-content::before {
     left: -20px;
     top: 0;
     width: 2px;
     height: 100%;
+    --tree-mask: none;
+    -webkit-mask-image: none;
+    mask-image: none;
     background: var(--side-bar-bg-color);
     background-image: none;
     z-index: 21;
 }
 
-/* Leaf / collapsed last sibling: extend mask upward to match L-junction offset */
+/* Leaf / collapsed last sibling: extend the stem cover to match the L offset */
 #file-library-tree .file-node-children > div:last-of-type.file-library-file-node > .file-node-content::before,
 #file-library-tree .file-node-children > div:last-of-type.file-node-collapsed > .file-node-content::before {
     top: 0;
@@ -1455,18 +1437,20 @@ header {
     top: 0;
     width: 20px;
     height: 15px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='15'%3E%3Cpath d='M0.5,0 L0,7 Q0,14 7,14 L20,14' stroke='rgba(0,0,0,0.12)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='15'%3E%3Cpath d='M0.5,0 L0,7 Q0,14 7,14 L20,14' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+    background-color: var(--tree-line-color);
+    -webkit-mask-image: var(--tree-mask);
+    -webkit-mask-repeat: no-repeat;
+    mask-image: var(--tree-mask);
+    mask-repeat: no-repeat;
     z-index: 22;
 }
 
 #file-library-tree .file-node-children > div:last-of-type.file-library-file-node > .file-node-content::after,
 #file-library-tree .file-node-children > div:last-of-type.file-node-collapsed > .file-node-content::after {
-    left: -20px;
-    width: 20px;
+    --tree-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='27'%3E%3Cpath d='M0.5,12 L0.5,19 Q0,26 7,26 L20,26' stroke='white' stroke-width='1' fill='none'/%3E%3C/svg%3E");
     height: 27px;
     top: -12px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='27'%3E%3Cpath d='M0.5,12 L0.5,19 Q0,26 7,26 L20,26' stroke='rgba(0,0,0,0.12)' stroke-width='1' fill='none'/%3E%3C/svg%3E");
 }
 
 /* ── Icon spacing ── */

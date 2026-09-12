@@ -20,6 +20,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Assemble published themes
+        run: node scripts/build.mjs
+
+      - name: Verify theme contract
+        run: node --test tests/theme-contract.test.mjs
+
       - name: Build zip package
         run: zip -j Typora_Claude-Like_Theme.zip claude-like.css claude-like-dark.css
 
